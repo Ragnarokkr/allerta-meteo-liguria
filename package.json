@@ -1,0 +1,15 @@
+{
+  "name": "allerta-meteo-liguria",
+  "version": "0.0.1",
+  "author": {"name": "Marco Trulla","email": "marco.trulla+dev@gmail.com"},
+  "description": "Chrome Extension for ARPAL Weather Alert System",
+  "type": "module",
+  "private": true,
+  "scripts": {"testing": "bun run ./scripts/testing.ts"},
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
