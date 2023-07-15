@@ -19,6 +19,8 @@ const iconAlertStatus = {
 
 let actionIcon = resources.icons.error;
 let state = settings;
+let lastCall = 0;
+let safeGuard = 5;
 
 async function getCurrentAlertStatus(html) {
   const log = createLog("getCurrentAlertStatus");
@@ -69,7 +71,16 @@ async function update(timeInterval) {
       path: actionIcon,
     });
 
-    setTimeout(update, timeInterval);
+    const diffTime = Date.now() - lastCall;
+    if (diffTime < timeInterval) safeGuard--;
+    if (safeGuard <= 0) {
+      console.error("safeGuard reached 0, exiting");
+      return;
+    }
+    setTimeout(timer => {
+      lastCall = Date.now();
+      update(timer);
+    }, timeInterval, timeInterval);
   }
 }
 
