@@ -1,4 +1,4 @@
-# Allerta Meteo Liguria
+# Allerta Meteo Liguria (Chrome Extension)
 
 ## ⚠️ Extremely Work In Progress ⚠️
 
