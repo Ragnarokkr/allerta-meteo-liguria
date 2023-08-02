@@ -1,0 +1,131 @@
+:root {
+  font-size: 0.625rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 1.6rem;
+  color: hsl(0, 0%, 85%);
+  background-color: hsl(0, 0%, 15%);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 50em;
+  margin-inline: auto;
+  margin-bottom: 5rem;
+  gap: 3rem;
+}
+
+#options {
+  display: grid;
+  justify-items: center;
+  gap: 3rem;
+  padding: 2rem;
+  border: 1px solid hsl(0, 0%, 50%);
+  border-radius: 1rem;
+}
+
+#options .settings {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#options .row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  margin-block: 1rem;
+}
+
+#options .row label {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: start;
+}
+
+#options .row label span:first-of-type {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+#options .row label span:last-of-type {
+  font-size: 1.4rem;
+  font-style: italic;
+  opacity: 0.65;
+}
+
+#options input {
+  padding: 1rem;
+  font-size: 1.8rem;
+  border: 1px solid hsl(0, 0%, 50%);
+  border-radius: 0.75rem;
+  color: hsl(0, 0%, 90%);
+  background-color: transparent;
+  transition: color 300ms linear, background-color 300ms linear;
+}
+
+#options input:focus {
+  border-color: hsl(0, 0%, 85%);
+  color: hsl(0, 0%, 15%);
+  background-color: hsla(0, 0%, 100%, 0.7);
+}
+
+#options input[type="number"] {
+  text-align: end;
+}
+
+#options .actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+#options .actions button {
+  padding: 1rem 2rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  border: 1px solid hsla(0, 0%, 80%, 0.75);
+  border-radius: 0.4rem;
+  color: hsl(0, 0%, 5%);
+  background-color: hsl(0, 0%, 90%);
+  transition: background-color 300ms linear;
+}
+
+#options .actions button:hover {
+  color: hsl(0, 0%, 90%);
+  background-color: hsl(216, 100%, 57%);
+}
+
+#options .actions button:disabled {
+  color: hsl(0, 0%, 75%);
+  background-color: hsl(0, 0%, 50%);
+}
+
+p a {
+  color: hsl(204, 100%, 81%);
+  text-decoration: none;
+}
+
+p a:hover,
+p a:active {
+  text-decoration: underline;
+}
+
+#dialog {
+  border-radius: 1.5rem;
+  background-color: hsl(73, 100%, 78%);
+}
+
+#dialog::backdrop {
+  background-color: hsla(0, 0%, 10%, 0.65);
+}

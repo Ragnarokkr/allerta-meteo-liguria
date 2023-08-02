@@ -1,0 +1,144 @@
+---
+# This is the dictionary for all supported languages. Not for direct use. Please use the
+# building tools to process it into valid JSON locales.
+
+extDescription:
+  message:
+    it: Estensione non ufficiale per le allerte meteo della Liguria
+    en: Unofficial extension for Liguria weather alerts
+  description: Extension descrption
+action_error:
+  message:
+    it: Servizio momentaneamente irraggiungibile
+    en: Service unavailable
+  description: Message shown on the action icon when the service is unreachable
+action_update:
+  message:
+    it: Aggiornamento del $date$ - $risk$
+    en: Updated on $date$ - $risk$
+  description: Message shown on the action icon on every update
+  placeholders:
+    date:
+      content: "$1"
+      example: 24/07/2023 15:40:00
+    risk:
+      content: "$2"
+      example: allerta idrogeologica per temporali
+action_button1:
+  message:
+    it: Bollettino di Allerta
+    en: Alert Bulletin
+  description: Label for first button in action popup
+action_button2:
+  message:
+    it: Bollettino di Previsione
+    en: Forecast Bulletin
+  description: Label for second button in action popup
+notification_button1:
+  message:
+    it: Sito Protezione Civile
+    en: Civil Protection Website
+  description: Label for first button in notification popup
+notification_button2:
+  message:
+    it: Sito ARPAL
+    en: ARPAL Website
+  description: Label for second button in notification popup
+options_title:
+  message:
+    it: "$title$ - Impostazioni"
+    en: "$title$ - Settings"
+  desciption: Option page title
+  placeholders:
+    title:
+      content: "$1"
+      example: Allerta Meteo Liguria
+options_captionSettings:
+  message:
+    it: Impostazioni
+    en: Settings
+  description: Label for settings section in options page
+options_captionAbout:
+  message:
+    it: Informazioni
+    en: About
+  description: Label for about section in options page
+options_captionDisclaimer:
+  message:
+    it: Avvertenze
+    en: Disclaimer
+  description: Label for disclaimer section in options page
+options_captionLicense:
+  message:
+    it: Licenza
+    en: License
+  description: Label for license section in options page
+options_captionReports:
+  message:
+    it: Segnalazione errori
+    en: Error Reporting
+  description: Label for error report section in options page
+options_settings_urlAlert:
+  message:
+    it: "URL Protezione Civile:"
+    en: "Civil Protection URL:"
+  description: Label for civil protection webpage URL in options page settings section
+options_settings_urlAlert_help:
+  message:
+    it: Usato come fonte per i dati e per il pulsante di apertura del sito nel popup di notifica.
+    en: Used as data source and for website opening button in notification popup.
+  description: Help text for civil protection webpage URL input field
+options_settings_urlArpal:
+  message:
+    it: "URL Arpal:"
+    en: "Arpal URL:"
+  description: Label for ARPAL webpage URL in options page settings section
+options_settings_urlArpal_help:
+  message:
+    it: Usato solo per il pulsante di apertura del sito nel popup di notifica.
+    en: Used only for website opening button in notification popup.
+  description: Help text for ARPAL webpage URL input field
+options_settings_updateInterval:
+  message:
+    it: "Intervallo aggiornamento:"
+    en: "Update interval:"
+  description: Label for update interval time in options page settings section
+options_settings_updateInterval_help:
+  message:
+    it: Minuti di attesa prima del successivo controllo per gli aggiornamenti. (min:$min$ - max:$max$)
+    en: Minutes to wait before the next update check. (min:$min$ - max:$max$)
+  description: Help text for update interval time input field
+  placeholders:
+    min:
+      content: "$1"
+      example: "5"
+    max:
+      content: "$2"
+      example: "60"
+options_settings_submit:
+  message:
+    it: Salva
+    en: Save
+  description: Label for settings save button
+options_settings_dialog_saved:
+  message:
+    it: Impostazioni salvate
+    en: Settings saved
+  description: Text for saved settings dialog
+options_disclaimer_text:
+  message:
+    it:
+      Sebbene i dati forniti da questa estensione vengano ottenuti direttamente
+      dal sito delle allerte meteo della Protezione Civile della Liguria, si consiglia
+      di non fare mai affidamento ai dati qui ottenuti, ma di verificare sempre alla
+      fonte tramite i link forniti dall'estensione stessa.
+    en: Although the data provided by this extension are obtained directly from
+      the weather alert site of the Civil Protection of Liguria, it is advisable never
+      to rely on the data obtained here, but to always check at the source through the
+      links provided by the extension itself.
+  description: Text for the disclaimer
+options_reports_text:
+  message:
+    it: "Per segnalare errori, malfunzionamenti, o suggerimenti si prega di visitare il link "
+    en: "To report errors, malfunctions, or suggestions, please visit the link "
+  description: Text for the error report

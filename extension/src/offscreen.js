@@ -1,8 +1,10 @@
-import { createLog } from "./debug.js";
+/// #debug
+import { createLog } from "./libs/debug.js";
 
-const log = createLog("apiManager");
+const log = createLog("offscreen");
+/// #enddebug
 
-const OFFSCREEN_DOCUMENT = "/api.html";
+const OFFSCREEN_DOCUMENT = "webScraper/webScraper.html";
 
 async function hasDocument() {
   const matchedClients = await clients.matchAll();
@@ -15,7 +17,9 @@ async function hasDocument() {
 }
 
 async function createOffscreenDocument() {
+  /// #debug
   log("creating offscreen document...");
+  /// #enddebug
 
   if (!(await hasDocument())) {
     await chrome.offscreen.createDocument({
@@ -27,7 +31,9 @@ async function createOffscreenDocument() {
 }
 
 async function closeOffscreenDocument() {
+  /// #debug
   log("closing offscreen document");
+  /// #enddebug
 
   if (!(await hasDocument())) {
     return;
@@ -35,14 +41,26 @@ async function closeOffscreenDocument() {
   await chrome.offscreen.closeDocument();
 }
 
-export async function requestApi(request) {
+export async function scrapePage(webPage) {
   await createOffscreenDocument();
-  log("requesting API", request);
+  /// #debug
+  log("scraping page");
+  /// #enddebug
 
   const response = await chrome.runtime.sendMessage({
-    ...request,
-    target: "api",
+    action: 'scrape',
+    data: {
+      html: await (await fetch(webPage)).text()
+    },
+    target: "webScraper",
   });
   await closeOffscreenDocument();
+
+  // Fix links with correct domain name
+  for (const link of Object.keys(response.response.links)) {
+    if (response.response.links[link])
+      response.response.links[link] = `${webPage}/${response.response.links[link]}`;
+  }
+
   return response;
 }

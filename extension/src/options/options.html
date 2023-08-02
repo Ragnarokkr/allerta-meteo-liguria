@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-ref="title"></title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <div class="container">
+      <section>
+        <h1 data-ref="caption-settings"></h1>
+        <form action="" id="options">
+          <div class="settings">
+            <div class="row">
+              <label for="urlAlert">
+                <span data-ref="settings-urlAlert"></span>
+                <span data-ref="settings-urlAlert-help"></span>
+              </label>
+              <input type="url" name="urlAlert" id="urlAlert" value="" />
+            </div>
+            <div class="row">
+              <label for="urlArpal">
+                <span data-ref="settings-urlArpal"></span>
+                <span data-ref="settings-urlArpal-help"></span>
+              </label>
+              <input type="url" name="urlArpal" id="urlArpal" value="" />
+            </div>
+            <div class="row">
+              <label for="updateInterval">
+                <span data-ref="settings-updateInterval"></span>
+                <span data-ref="settings-updateInterval-help"></span>
+              </label>
+              <input
+                type="number"
+                name="updateInterval"
+                id="updateInterval"
+                min="5"
+                max="60"
+                value=""
+              />
+            </div>
+          </div>
+          <div class="actions">
+            <button id="submit" type="submit" data-ref="settings-submit"></button>
+          </div>
+        </form>
+      </section>
+      <section>
+        <h2 data-ref="caption-about"></h2>
+        <p><strong>Allerta Meteo Liguria v<span data-ref="version"></span></strong></p>
+        <p data-ref="about-text"></p>
+      </section>
+
+      <section>
+        <h2 data-ref="caption-disclaimer"></h2>
+        <p data-ref="disclaimer-text"></p>
+      </section>
+      <section>
+        <h2 data-ref="caption-license"></h3>
+        <pre data-ref="license"></pre>
+      </section>
+
+      <section>
+        <h2 data-ref="caption-reports"></h2>
+        <p>
+          <span data-ref="reports-text"></span>
+          <a href="https://github.com/Ragnarokkr/allerta-meteo-liguria/issues">https://github.com/Ragnarokkr/allerta-meteo-liguria/issues</a>
+        </p>
+        
+      </section>
+    </div>
+
+    <dialog id="dialog" modal="true">
+      <p data-ref="settings-dialog-saved"></p>
+    </dialog>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

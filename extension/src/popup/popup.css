@@ -1,0 +1,21 @@
+#map {
+  margin-bottom: 1rem;
+}
+
+#actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.action {
+  padding: 1rem;
+  border-radius: 0.3rem;
+  color: hsl(0, 0%, 90%);
+  background-color: hsl(0, 0%, 15%);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.action:hover {
+  background-color: hsl(216, 100%, 57%);
+}

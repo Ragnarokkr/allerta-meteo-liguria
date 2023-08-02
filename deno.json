@@ -1,0 +1,13 @@
+{
+  "tasks": {
+    "clean": "rm -fr .cache && rm -fr dist",
+    "build-debug": "deno run --allow-env --allow-read --allow-write --allow-ffi --unstable ./build/build.ts --debug",
+    "build-release": "deno run --allow-env --allow-read --allow-write --allow-run --allow-net --allow-ffi --unstable ./build/build.ts --release",
+    "test-chrome": "deno run --allow-run --allow-env --allow-read --allow-write ./build/test_chrome.ts",
+    "pack-extension": "deno run --allow-run --allow-env --allow-read --allow-write ./build/pack_extension.ts",
+    "test-chrome-setup": "deno task test-chrome --setup",
+    "build-test-debug": "deno task build-debug && deno task test-chrome",
+    "build-test-release": "deno task build-release && deno task test-chrome --release",
+    "build-pack": "deno task build-release --covers && deno task pack-extension"
+  }
+}
