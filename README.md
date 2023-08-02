@@ -21,7 +21,7 @@ The extension requires following permissions to work as expected:
 
 ## Installing
 
-The extension code is plain JavaScript (ES6), but the development environment requires [Deno](https://deno.land/) installed into the system.
+The extension code is plain JavaScript (ES6), but the development environment requires [Deno](https://deno.land/) installed into the system. Building tasks also require [Skia](https://skia.org/) and [Puppeteer](https://pptr.dev/), which will be installed at the first build run.
 
 ### Clone the repository
 
