@@ -38,25 +38,16 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
 > deno task
   Available tasks:
   - clean
-      rm -fr .cache && rm -fr dist
   - build-debug
-      deno run --allow-env --allow-read --allow-write --allow-ffi --unstable ./build/build.ts --debug
   - build-release
-      deno run --allow-env --allow-read --allow-write --allow-run --allow-net --allow-ffi --unstable ./build/build.ts --release
   - test-chrome
-      deno run --allow-run --allow-env --allow-read --allow-write ./build/test_chrome.ts
   - pack-extension
-      deno run --allow-run --allow-env --allow-read --allow-write ./build/pack_extension.ts
+  - bump
   - test-chrome-setup
-      deno task test-chrome --setup
   - build-test-debug
-      deno task build-debug && deno task test-chrome
   - build-test-release
-      deno task build-release && deno task test-chrome --release
   - build-pack
-      deno task build-release --covers && deno task pack-extension
   - tools-collector
-    cd tools && deno run --allow-net --allow-read --allow-write collector.ts && cd ..
 ```
 
 * `clean`: rimuove le directory della cache temporanea e delle build;
@@ -64,6 +55,7 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
 * `build-release`: crea la build di release dell'estensione, priva di commenti e sezioni di log;
 * `test-chrome`: esegue un'istanza di **chrome** con profilo utente temporaneo nella cartella di cache, con tutte le estensioni disabilitate, tranne la build di debug;
 * `pack-extension`: crea il file .zip dalla build di release;
+* `bump`: incrementa la versione (maggiore, minore, o patch);
 * `test-chrome-setup`: inizializza cartella di cache e profilo utente temporaneo senza avviare istanza di **chrome**;
 * `build-test-debug`: crea la build di debug e avvia l'istanza di **chrome** usandola come estensione;
 * `build-test-release`: crea la build di release e avvia l'istanza di **chrome** usandola come estensione;
@@ -135,6 +127,7 @@ La classe istanziata, ritorna un oggetto con questa struttura:
 ```typescript
 {
   manifest: { [key:string]: unknown },
+  changelog: { [key:string]: unknown },
   extensionDir: string,
   resourcesDir: string,
   sourceDir: string,
