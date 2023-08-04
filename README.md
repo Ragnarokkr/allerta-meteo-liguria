@@ -56,6 +56,8 @@ From the documentation on the official website it's possible to find the [instal
       deno task build-release && deno task test-chrome --release
   - build-pack
       deno task build-release --covers && deno task pack-extension
+  - tools-collector
+    cd tools && deno run --allow-net --allow-read --allow-write collector.ts && cd ..
 ```
 
 * `clean`: remove temporary cache and build directories;
@@ -67,6 +69,7 @@ From the documentation on the official website it's possible to find the [instal
 * `build-test-debug`: create the debug build and start the **chrome** instance using it as an extension;
 * `build-test-release`: create the release build and start the **chrome** instance using it as an extension;
 * `build-pack`: create the release build, create the graphics to upload on the web store, and create the .zip file
+* `tools-collector`: starts a web scraping tool that collects messages strings from the website. (Used to collect strings for future alerts localizations).
 
 ## Project Structure
 
@@ -88,6 +91,7 @@ From the documentation on the official website it's possible to find the [instal
 │  │  └── locales.yaml
 │  ├── src
 │  └── manifest.yaml
+├── tools
 ├── .editorconfig
 ├── .gitignore
 ├── .prettierrc
@@ -114,6 +118,7 @@ From the documentation on the official website it's possible to find the [instal
      * `locales.yaml`: localization file [yaml](https://yaml.org/), used to create files in the various supported languages
    * `src`: extension sources directory
    * `manifest.yaml`: [yaml](https://yaml.org/) file with settings to be used to create the `manifest.json` files required by the extension;
+* `tools`: all the tools used for developing the extension and its related files, are stored here
 * `.editorconfig`: configuration file for [EditorConfig](https://editorconfig.org/)
 * `.gitignore`: git file for excluding files/directories
 * `.prettierrc`: [Prettier](https://prettier.io/) configuration file

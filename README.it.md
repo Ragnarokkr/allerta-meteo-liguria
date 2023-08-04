@@ -55,6 +55,8 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
       deno task build-release && deno task test-chrome --release
   - build-pack
       deno task build-release --covers && deno task pack-extension
+  - tools-collector
+    cd tools && deno run --allow-net --allow-read --allow-write collector.ts && cd ..
 ```
 
 * `clean`: rimuove le directory della cache temporanea e delle build;
@@ -66,6 +68,7 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
 * `build-test-debug`: crea la build di debug e avvia l'istanza di **chrome** usandola come estensione;
 * `build-test-release`: crea la build di release e avvia l'istanza di **chrome** usandola come estensione;
 * `build-pack`: crea la build di release, crea la grafica da caricare nel web store, e crea il file .zip
+* `tools-collector`: avvia lo strumento di webscraping che colleziona i messaggi delle allerte dal sito web (usato per collezionare le stringhe che verranno usato in futuro per la localizzazione delle allerte).
 
 ## Struttura del progetto
 
@@ -87,6 +90,7 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
 │  │  └── locales.yaml
 │  ├── src
 │  └── manifest.yaml
+├── tools
 ├── .editorconfig
 ├── .gitignore
 ├── .prettierrc
@@ -113,6 +117,7 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
     * `locales.yaml`: file [yaml](https://yaml.org/) delle localizzazioni, usato per creare i file nelle varie lingue supportate
   * `src`: directory per i sorgenti dell'estensione
   * `manifest.yaml`: file [yaml](https://yaml.org/) con le impostazioni da usare per creare i file `manifest.json` necessario all'estensione;
+* `tools`: tutti gli strumenti usati per lo sviluppo dell'estensione sono raggruppati qui
 * `.editorconfig`: file di configurazione [EditorConfig](https://editorconfig.org/)
 * `.gitignore`: file di git per l'esclusione di file/directory
 * `.prettierrc`: file di configurazione di [Prettier](https://prettier.io/) 
