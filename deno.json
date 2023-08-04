@@ -15,7 +15,7 @@
     "test-chrome-setup": "deno task test-chrome --setup",
     "build-test-debug": "deno task build-debug && deno task test-chrome",
     "build-test-release": "deno task build-release && deno task test-chrome --release",
-    "build-pack": "deno task build-release --covers && deno task pack-extension",
+    "build-pack": "deno task build-release --covers --changelog && deno task pack-extension",
     "tools-collector": "cd tools && deno run --allow-net --allow-read --allow-write collector.ts && cd .."
   }
 }

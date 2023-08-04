@@ -9,6 +9,7 @@ function parseArgs(args: string[]) {
     manifest: true,
     locales: true,
     license: true,
+    changelog: false,
     verbose: false,
   };
 

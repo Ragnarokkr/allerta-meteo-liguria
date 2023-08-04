@@ -4,20 +4,38 @@ import { parse } from "std/yaml/mod.ts";
 
 type ManifestType = { [key: string]: unknown };
 
+export type ChangeLogType = {
+  version: "unreleased" | string;
+  date?: string;
+  url?: string;
+  added?: string[];
+  changed?: string[];
+  deprecated?: string[];
+  removed?: string[];
+  fixed?: string[];
+  security?: string[];
+};
+
 export type ConfigMode = "release" | "debug";
 
 export type DistFilesOptions = { root?: string; includePath?: boolean };
 
 export default class ConfigBuild {
   private _manifest: ManifestType = {};
+  private _changelog: ChangeLogType[] = [];
   private _files: Array<string> = [];
 
   constructor(private mode: ConfigMode) {
     this._manifest = parse(Deno.readTextFileSync(join(this.extensionDir, "manifest.yaml"))) as ManifestType;
+    this._changelog = parse(Deno.readTextFileSync(join(this.extensionDir, "changelog.yaml"))) as ChangeLogType[];
   }
 
   get manifest(): ManifestType {
     return this._manifest;
+  }
+
+  get changelog(): ChangeLogType[] {
+    return this._changelog;
   }
 
   get extensionDir() {

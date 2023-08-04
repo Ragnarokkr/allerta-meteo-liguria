@@ -3,7 +3,7 @@ import { join } from "std/path/mod.ts";
 import { parse } from "std/yaml/mod.ts";
 import { createCanvas } from "skia_canvas/mod.ts";
 import convert from "svg_to_png/mod.ts";
-import { ConfigMode, default as ConfigBuild } from "./config_build.ts";
+import { ConfigMode, ChangeLogType, default as ConfigBuild } from "./config_build.ts";
 
 export type Flags = Record<string, boolean>;
 
@@ -231,7 +231,7 @@ class Builder {
   }
 
   private _manifest(skip = false) {
-    this._msg("Generaing manifest.json...", !skip);
+    this._msg("Generating manifest.json...", !skip);
 
     if (!skip) return;
 
@@ -240,7 +240,40 @@ class Builder {
       JSON.stringify(this._config.manifest, null, this._mode === "debug" ? 2 : undefined)
     );
 
-    this._msg("Generaing manifest.json...ok", !skip, true);
+    this._msg("Generating manifest.json...ok", !skip, true);
+  }
+
+  private _changelog(skip = false) {
+    this._msg("Generating changelog.md...", !skip);
+
+    if (!skip) return;
+
+    const text = [
+      "# Changelog\n",
+      "All notable changes to this project will be documented in this file.\n",
+      "The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),",
+      "and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n",
+    ];
+
+    const links: string[] = [];
+
+    for (const change of this._config.changelog) {
+      text.push(`## [${change.version}][${change.version.toLowerCase()}]${change.date ? ` - ${change.date}` : ""}\n`);
+      ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"].forEach((action) => {
+        if (action.toLowerCase() in change) {
+          const items: string[] = change[action.toLowerCase() as keyof ChangeLogType] as string[];
+          text.push(`### ${action}\n`);
+          items.forEach((item) => {
+            text.push(`- ${item}`);
+          });
+        }
+      });
+      links.push(`[${change.version.toLowerCase()}]: ${change.url}`);
+    }
+
+    Deno.writeTextFileSync(join(this._config.buildDir, "changelog.md"), `${text.join("\n")}\n${links.join("\n")}`);
+
+    this._msg("Generating changelog.md...ok", !skip, true);
   }
 
   private _locales(skip = false) {
@@ -297,6 +330,7 @@ class Builder {
     this._files(this._flags.copy);
     this._manifest(this._flags.manifest);
     this._locales(this._flags.locales);
+    this._changelog(this._flags.changelog);
     this._license(this._flags.license);
   }
 
