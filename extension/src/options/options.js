@@ -1,3 +1,8 @@
+// Copyright (c) 2023 Marco Trulla <marco.trulla+dev@gmail.com>
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 const MIN_INTERVAL = 5 * 60 * 1000;
 const MAX_INTERVAL = 60 * 60 * 1000;
 

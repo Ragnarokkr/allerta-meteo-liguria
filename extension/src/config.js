@@ -1,3 +1,8 @@
+// Copyright (c) 2023 Marco Trulla <marco.trulla+dev@gmail.com>
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 export const Settings = {
   scrapeWebPageURL: "https://allertaliguria.regione.liguria.it",
   arpalWebsite: "https://www.arpal.liguria.it/tematiche/meteo.html",

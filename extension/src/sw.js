@@ -1,3 +1,8 @@
+// Copyright (c) 2023 Marco Trulla <marco.trulla+dev@gmail.com>
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 // @deno-types="npm:chrome-types"
 import { Settings, Alert } from "./config.js";
 import { scrapePage } from "./offscreen.js";
