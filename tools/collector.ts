@@ -1,17 +1,25 @@
 import { DOMParser } from "deno_dom/deno-dom-wasm.ts";
 
+type DatabaseRow = {
+  alert: string;
+  risk: string;
+  info: string;
+};
+
 const ENDPOINT = "https://allertaliguria.regione.liguria.it/";
 const DB_NAME = "collector_db.json";
-let db = [];
+
+let db;
 
 try {
   console.log("\nLoading database...");
-  db = JSON.parse(Deno.readTextFileSync(DB_NAME));
+  db = new Set([...JSON.parse(Deno.readTextFileSync(DB_NAME)).map((row: DatabaseRow) => JSON.stringify(row))]);
 } catch (err) {
   if (err.code === "ENOENT") {
-    Deno.writeTextFileSync(DB_NAME, JSON.stringify({}));
+    db = new Set();
   } else {
     console.error("Database file seems to corrupted. Aborting.\n");
+    Deno.exit(1);
   }
 }
 
@@ -30,10 +38,10 @@ try {
       dom?.querySelector("section:nth-of-type(3) div a div h2:nth-of-type(2)")?.innerText.toLocaleLowerCase().trim() ??
       "unknown",
   };
-  db.push(data);
+  db.add(JSON.stringify(data));
 
   console.log("Saving parsed data into the database...");
-  Deno.writeTextFileSync(DB_NAME, JSON.stringify(db));
+  Deno.writeTextFileSync(DB_NAME, JSON.stringify(Array.from(db).map((row: string) => JSON.parse(row))));
 
   console.log("Done.\n");
 } catch (err) {
