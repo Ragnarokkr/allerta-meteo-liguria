@@ -1,7 +1,7 @@
-import { default as ConfigBuild } from "./config_build.ts";
+import { emptyDirSync } from "std/fs/mod.ts";
+import { join } from "std/path/mod.ts";
 
-import { emptyDirSync } from "https://deno.land/std@0.196.0/fs/mod.ts";
-import { join } from "https://deno.land/std@0.196.0/path/mod.ts";
+import { default as ConfigBuild } from "./config_build.ts";
 
 const config = new ConfigBuild(Deno.args.includes("--release") ? "release" : "debug");
 

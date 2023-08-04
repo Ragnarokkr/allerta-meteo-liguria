@@ -1,6 +1,6 @@
 // @deno-types="npm:chrome-types"
-import { join, SEP } from "https://deno.land/std@0.196.0/path/mod.ts";
-import { parse } from "https://deno.land/std@0.196.0/yaml/mod.ts";
+import { join, SEP } from "std/path/mod.ts";
+import { parse } from "std/yaml/mod.ts";
 
 type ManifestType = { [key: string]: unknown };
 

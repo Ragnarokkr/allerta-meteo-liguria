@@ -1,5 +1,5 @@
-import { compress } from "https://deno.land/x/zip@v1.2.5/mod.ts";
-import { join } from "https://deno.land/std@0.196.0/path/mod.ts";
+import { compress } from "zip/mod.ts";
+import { join } from "std/path/mod.ts";
 import { default as ConfigBuild } from "./config_build.ts";
 
 const config = new ConfigBuild("release");
