@@ -16,7 +16,7 @@
     "test-chrome-setup": "FLAGS=setup deno task test-chrome",
     "build-test-debug": "deno task build-debug && deno task test-chrome",
     "build-test-release": "PRODUCTION=release deno task build-release && deno task test-chrome",
-    "build-pack": "deno task build-release --covers --changelog && deno task pack-extension",
+    "build-pack": "FLAGS=covers,changelog deno task build-release && deno task pack-extension",
     "tools-collector": "cd tools && deno run --allow-env --allow-net --allow-read --allow-write collector.ts && cd .."
   }
 }
