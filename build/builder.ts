@@ -325,7 +325,7 @@ class Builder {
   }
 
   private async _build() {
-    this._icons(this._flags.icons);
+    await this._icons(this._flags.icons);
     await this._covers(this._flags.covers);
     this._files(this._flags.copy);
     this._manifest(this._flags.manifest);

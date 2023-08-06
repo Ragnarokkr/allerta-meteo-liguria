@@ -62,6 +62,12 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
 * `build-pack`: crea la build di release, crea la grafica da caricare nel web store, e crea il file .zip
 * `tools-collector`: avvia lo strumento di webscraping che colleziona i messaggi delle allerte dal sito web (usato per collezionare le stringhe che verranno usato in futuro per la localizzazione delle allerte).
 
+Per i task `build-*`, è possibile dichiarare le variabili ambiente `PRODUCTION=debug` (default) o `PRODUCTION=release`, e `FLAGS=[clean,icons,covers,copy,manifest,locales,license,changelog,verbose]` per passare parametri alla build. I flag possono essere specificati con l'intestazione `--no-` in modo da essere disabilitati (fare riferimento a [build.ts](build/build.ts) maggiori informazioni relative ai flag di default).
+
+Per i task `test-chrome-*`, è possibile dichiarare le variabili ambiente `PRODUCTION=debug` (default) o `PRODUCTION=release`, e `FLAGS=[setup]` per specificare quale target e azione eseguire.
+
+Per i task `tools-*`, è possibile dichiarare la variabile ambiente `FLAGS` per specificare eventuali opzioni (fare riferimento al codice del tool specifico per maggiori informazioni).
+
 ## Struttura del progetto
 
 ```text

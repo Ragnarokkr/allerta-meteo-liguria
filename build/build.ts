@@ -1,4 +1,8 @@
 import { Flags, default as Builder } from "./builder.ts";
+import { ConfigMode } from "./config_build.ts";
+
+const target = (Deno.env.get("PRODUCTION") ?? "debug") as ConfigMode;
+const flags = Deno.env.get("FLAGS")?.split(",") ?? [];
 
 function parseArgs(args: string[]) {
   const flags: Flags = {
@@ -20,10 +24,8 @@ function parseArgs(args: string[]) {
   return flags;
 }
 
-if (Deno.args.includes("--debug")) {
-  new Builder("debug", parseArgs(Deno.args.toSpliced(Deno.args.indexOf("--debug"), 1))).start();
-} else if (Deno.args.includes("--release")) {
-  new Builder("release", parseArgs(Deno.args.toSpliced(Deno.args.indexOf("--release"), 1))).start();
+if (["debug", "release"].includes(target)) {
+  new Builder(target, parseArgs(flags)).start();
 } else {
-  console.error("%cUnknown build mode. Only --debug and --release are supported.", "color:red");
+  console.error(`Invalid production target mode! Expected 'debug' or 'release' but got ${target}`);
 }

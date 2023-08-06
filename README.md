@@ -63,6 +63,12 @@ From the documentation on the official website it's possible to find the [instal
 * `build-pack`: create the release build, create the graphics to upload on the web store, and create the .zip file
 * `tools-collector`: starts a web scraping tool that collects messages strings from the website. (Used to collect strings for future alerts localizations).
 
+For `build-*` tasks, it is possibile to declare `PRODUCTION=debug` (default) or `PRODUCTION=release`, and `FLAGS=[clean,icons,covers,copy,manifest,locales,license,changelog,verbose]` environment variables to pass to the build. The flags can be specified with a leading `--no-` to disable the specific flag. (Read [build.ts](build/build.ts) for more info about the default flags.)
+
+For `test-chrome-*` tasks, it is possible to declare `PRODUCTION=debug` (default) or `PRODUCTION=release`, and `FLAGS=[setup]` environment variables to specify which target and action to perform.
+
+For `tools-*` tasks, it is possible to declare the `FLAGS` environment variable to specify options. (Read the specific tool's code for more info.)
+
 ## Project Structure
 
 ```text
