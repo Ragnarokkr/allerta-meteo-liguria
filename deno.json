@@ -1,6 +1,6 @@
 {
   "imports": {
-    "std/": "https://deno.land/std@0.197.0/",
+    "std/": "https://deno.land/std@0.200.0/",
     "skia_canvas/": "https://deno.land/x/skia_canvas@0.5.4/",
     "svg_to_png/": "https://deno.land/x/svg_to_png@v1.1.0/",
     "zip/": "https://deno.land/x/zip@v1.2.5/",
