@@ -1,6 +1,6 @@
 manifest_version: 3
 name: Allerta Meteo Liguria
-version: 0.1.0
+version: 0.1.1
 description: "__MSG_extDescription__"
 author: "Marco Trulla <marco.trulla+dev@gmail.com>"
 homepage_url: "https://github.com/Ragnarokkr/allerta-meteo-liguria/"
