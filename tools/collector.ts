@@ -36,13 +36,20 @@ async function scrapeData() {
 
   message("Parsing content...");
   const dom = new DOMParser().parseFromString(html, "text/html");
+  const sectionCursor = dom?.querySelector(".al-news-ticker-bar") === null ? 3 : 4;
 
   const data = {
-    alert: dom?.querySelector("section:nth-of-type(3) div a div")?.className.split("al-msgbar-")[1] ?? "unknown",
-    risk: dom?.querySelector("section:nth-of-type(3) div a div h1")?.innerText.toLocaleLowerCase().trim() ?? "unknown",
-    info:
-      dom?.querySelector("section:nth-of-type(3) div a div h2:nth-of-type(2)")?.innerText.toLocaleLowerCase().trim() ??
+    alert:
+      dom?.querySelector(`section:nth-of-type(${sectionCursor}) div a div`)?.className.split("al-msgbar-")[1] ??
       "unknown",
+    risk:
+      dom?.querySelector(`section:nth-of-type(${sectionCursor}) div a div h1`)?.innerText.toLocaleLowerCase().trim() ??
+      "unknown",
+    info:
+      dom
+        ?.querySelector(`section:nth-of-type(${sectionCursor}) div a div h2:nth-of-type(2)`)
+        ?.innerText.toLocaleLowerCase()
+        .trim() ?? "unknown",
   };
   db.add(JSON.stringify(data));
 
