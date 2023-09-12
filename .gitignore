@@ -170,3 +170,5 @@ dist
 
 test
 publishing
+
+tools/*.json
