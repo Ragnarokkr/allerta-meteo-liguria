@@ -63,7 +63,7 @@ export default class ConfigBuild {
   }
 
   get iconSizes() {
-    return [16, 32, 48, 128];
+    return [16, 32, 48, 64, 128, 300];
   }
 
   get promoSizes() {
