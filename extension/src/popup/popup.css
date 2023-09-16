@@ -5,24 +5,61 @@
  * https://opensource.org/licenses/MIT
  */
 
-#map {
-  margin-bottom: 1rem;
+:root {
+  --theme-action-bar-bg: hsl(0 0% 15%);
+  --theme-action-bar-fg: hsl(0 0% 85%);
+  --theme-action-bar-fg-highlight: hsl(0 0% 95%);
+  --theme-accent-color: hsl(212 100% 35%);
 }
 
-#actions {
+*,
+*::before,
+*::after {
+  box-sizing: content-box;
+}
+
+body {
+  inset: 0;
+  padding: 0;
+}
+
+#map {
+  margin-bottom: 1rem;
+  width: var(--_map-width, 463px);
+  height: var(--_map-height, 236px);
+}
+
+.actions {
   display: flex;
-  justify-content: space-around;
+  justify-items: space-evenly;
+
+  color: var(--theme-action-bar-fg);
+  background-color: var(--theme-action-bar-bg);
+}
+
+.actions:first-child {
+  margin-bottom: 1rem;
+}
+.actions:last-child {
+  margin-top: 1rem;
 }
 
 .action {
-  padding: 1rem;
-  border-radius: 0.3rem;
-  color: hsl(0, 0%, 90%);
-  background-color: hsl(0, 0%, 15%);
+  display: inline-block;
+  flex: 1;
+
+  padding-block: 1rem;
+
+  text-align: center;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+
+  color: var(--theme-action-bar-fg-color);
+  text-shadow: 0 0 0 var(--theme-action-bar-fg-highlight);
+  transition: color 200ms linear, text-shadow 200ms linear, background-color 200ms linear;
 }
 
 .action:hover {
-  background-color: hsl(216, 100%, 57%);
+  color: var(--theme-action-bar-fg-highlight);
+  text-shadow: 0 0 0.3rem var(--theme-action-bar-fg-highlight);
+  background-color: var(--theme-accent-color);
 }
