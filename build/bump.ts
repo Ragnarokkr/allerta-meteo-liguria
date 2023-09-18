@@ -1,27 +1,45 @@
+import { Logger } from "logger/mod.ts";
 import { join } from "std/path/mod.ts";
-import { ReleaseType, parse, increment, format } from "std/semver/mod.ts";
+import { ReleaseType, parse, increment, format, compare } from "std/semver/mod.ts";
 import { stringify } from "std/yaml/mod.ts";
-import { default as ConfigBuild } from "./config_build.ts";
+import { default as Config } from "./build.config.ts";
+
+const logger = new Logger();
+
+let release = "patch" as ReleaseType;
+
+if (!Deno.env.get("RELEASE")) {
+  logger.warn('No RELEASE environment variable set, defaulting to "patch" bump');
+} else if (!["major", "minor", "patch"].includes(Deno.env.get("RELEASE") as ReleaseType)) {
+  logger.error('RELEASE environment variable must be "major", "minor" or "patch"');
+  Deno.exit(1);
+} else {
+  release = Deno.env.get("RELEASE") as ReleaseType;
+}
 
 try {
-  if (Deno.args.length === 0) {
-    console.error("--major, --minor, or --patch is required");
-    Deno.exit(1);
-  } else {
-    const release = Deno.args[0].split("--")[1] as ReleaseType;
+  const config = new Config("release"); // debug or release doesn't matter
+  const newVersion = increment(parse(config.manifest.version as string), release);
 
-    if (!["major", "minor", "patch"].includes(release)) {
-      console.error("--major, --minor, or --patch is required");
-      Deno.exit(1);
-    }
+  Deno.writeTextFileSync(
+    join(config.extensionDir, "manifest.yaml"),
+    stringify({ ...config.manifest, ...{ version: format(newVersion) } })
+  );
+  logger.info(`Bumped version to ${format(newVersion)} in manifest file`);
 
-    const config = new ConfigBuild("release"); // debug or release doesn't matter
-    const newVersion = increment(parse(config.manifest.version as string), release);
-    Deno.writeTextFileSync(
-      join(config.extensionDir, "manifest.yaml"),
-      stringify({ ...config.manifest, ...{ version: format(newVersion) } })
-    );
-  }
+  config.changelog[0].url = `https://github.com/Ragnarokkr/allerta-meteo-liguria/compare/${format(newVersion)}...HEAD`;
+  config.changelog.push({
+    version: format(newVersion),
+    date: new Date().toISOString().replace(/T.+Z/, ""),
+    url: `https://github.com/Ragnarokkr/allerta-meteo-liguria/releases/tag/${format(newVersion)}`,
+  });
+  config.changelog.sort((a, b) => {
+    if (a.version === "unreleased") return 1;
+    if (b.version === "unreleased") return 1;
+    return compare(parse(b.version), parse(a.version));
+  });
+  Deno.writeTextFileSync(join(config.extensionDir, "changelog.yaml"), stringify(config.changelog));
+  logger.info(`Added release ${format(newVersion)} notes to changelog`);
 } catch (err) {
-  console.error(err);
+  logger.error(err);
 }

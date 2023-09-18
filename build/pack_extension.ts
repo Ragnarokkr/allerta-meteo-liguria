@@ -1,8 +1,11 @@
+import { Logger } from "logger/mod.ts";
 import { compress } from "zip/mod.ts";
 import { join } from "std/path/mod.ts";
-import { default as ConfigBuild } from "./config_build.ts";
+import { default as Config } from "./build.config.ts";
 
-const config = new ConfigBuild("release");
+const logger = new Logger();
+
+const config = new Config("release");
 
 try {
   const cwd = Deno.cwd();
@@ -12,11 +15,13 @@ try {
       flags: ["-9", "-T", "-q"],
     }))
   ) {
-    console.error("Error: estension could not be packed.");
+    logger.error("[PUBLISH:PACKAGE] error while trying to pack the extension");
+  } else {
+    logger.info("[PUBLISH:PACKAGE] extension packed successfully");
   }
   Deno.chdir(cwd);
 } catch (err) {
-  console.error(err);
+  logger.error(err);
   Deno.exit(1);
 }
 

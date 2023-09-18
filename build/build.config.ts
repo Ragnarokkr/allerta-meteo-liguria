@@ -22,12 +22,12 @@ export type DistFilesOptions = { root?: string; includePath?: boolean };
 
 export default class ConfigBuild {
   private _manifest: ManifestType = {};
-  private _changelog: ChangeLogType[] = [];
+  private _changelog: Array<ChangeLogType> = [];
   private _files: Array<string> = [];
 
   constructor(private mode: ConfigMode) {
     this._manifest = parse(Deno.readTextFileSync(join(this.extensionDir, "manifest.yaml"))) as ManifestType;
-    this._changelog = parse(Deno.readTextFileSync(join(this.extensionDir, "changelog.yaml"))) as ChangeLogType[];
+    this._changelog = parse(Deno.readTextFileSync(join(this.extensionDir, "changelog.yaml"))) as Array<ChangeLogType>;
   }
 
   get manifest(): ManifestType {

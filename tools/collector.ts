@@ -1,5 +1,5 @@
 import { DOMParser } from "deno_dom/deno-dom-wasm.ts";
-import { message } from "./utils.ts";
+import { message, error } from "./utils.ts";
 
 type DatabaseRow = {
   alert: string;
@@ -25,7 +25,7 @@ async function scrapeData() {
     if (err.code === "ENOENT") {
       db = new Set();
     } else {
-      console.error("Database file seems to corrupted. Aborting.\n");
+      error("Database file seems to corrupted. Aborting.\n");
       Deno.exit(1);
     }
   }
@@ -74,9 +74,7 @@ async function main() {
   } else if (flags.includes("display")) {
     display();
   } else {
-    console.log(
-      "Invalid flag, try FLAGS= or FLAGS=scrape to retrieve data, or FLAGS=display to show database entries."
-    );
+    error("Invalid flag, try FLAGS= or FLAGS=scrape to retrieve data, or FLAGS=display to show database entries.");
     Deno.exit(1);
   }
   Deno.exit(0);
@@ -85,6 +83,6 @@ async function main() {
 try {
   main();
 } catch (err) {
-  console.error(err);
+  error(err);
   Deno.exit(1);
 }

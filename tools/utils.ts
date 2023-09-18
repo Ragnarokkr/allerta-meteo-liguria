@@ -1,3 +1,7 @@
+import { Logger } from "logger/mod.ts";
+
+const logger = new Logger();
+
 export function message(str: string, replaceLine = false) {
   // ASCII escape character
   const ESC = "\x1b";
@@ -9,5 +13,9 @@ export function message(str: string, replaceLine = false) {
     Deno.writeSync(Deno.stdout.rid, new TextEncoder().encode(CSI + "K")); // clears from cursor to line end
   }
 
-  console.info(str);
+  logger.info(str);
+}
+
+export function error(err: string) {
+  logger.error(err);
 }

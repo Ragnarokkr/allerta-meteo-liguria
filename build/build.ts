@@ -1,5 +1,8 @@
+import { Logger } from "logger/mod.ts";
 import { Flags, default as Builder } from "./builder.ts";
-import { ConfigMode } from "./config_build.ts";
+import { ConfigMode } from "./build.config.ts";
+
+const logger = new Logger();
 
 const target = (Deno.env.get("PRODUCTION") ?? "debug") as ConfigMode;
 const flags = Deno.env.get("FLAGS")?.split(",") ?? [];
@@ -27,5 +30,5 @@ function parseArgs(args: string[]) {
 if (["debug", "release"].includes(target)) {
   new Builder(target, parseArgs(flags)).start();
 } else {
-  console.error(`Invalid production target mode! Expected 'debug' or 'release' but got ${target}`);
+  logger.error(`Invalid production target mode! Expected "debug" or "release" but got "${target}"`);
 }

@@ -1,9 +1,11 @@
+import { Logger } from "logger/mod.ts";
 import { emptyDirSync } from "std/fs/mod.ts";
 import { join } from "std/path/mod.ts";
+import { default as Config } from "./build.config.ts";
 
-import { default as ConfigBuild } from "./config_build.ts";
+const logger = new Logger();
 
-const config = new ConfigBuild(Deno.env.get("PRODUCTION") === "release" ? "release" : "debug");
+const config = new Config(Deno.env.get("PRODUCTION") === "release" ? "release" : "debug");
 const flags = Deno.env.get("FLAGS")?.split(",") ?? [];
 
 const CACHE_PATH = ".cache";
@@ -26,14 +28,15 @@ const prefs = {
 
 try {
   emptyDirSync(CHROME_TEST_PROFILE_PATH);
-  await Deno.writeTextFile(FIRST_RUN_PATH, "", { create: true });
-  await Deno.mkdir(join(CHROME_TEST_PROFILE_PATH, "Default"), { recursive: true });
-  await Deno.writeTextFile(PREFERENCES_PATH, JSON.stringify(prefs), { create: true });
-  if (flags.includes("setup")) Deno.exit(0);
+  Deno.writeTextFileSync(FIRST_RUN_PATH, "", { create: true });
+  Deno.mkdirSync(join(CHROME_TEST_PROFILE_PATH, "Default"), { recursive: true });
+  Deno.writeTextFileSync(PREFERENCES_PATH, JSON.stringify(prefs), { create: true });
+
+  if (flags.includes("dry-run")) Deno.exit(0);
 
   new Deno.Command(BROWSER, { args: BROWSER_FLAGS }).spawn();
 } catch (err) {
-  console.error(err);
+  logger.error(err);
   Deno.exit(1);
 }
 

@@ -1,9 +1,12 @@
-import { emptyDirSync } from "std/fs/mod.ts";
-import { join } from "std/path/mod.ts";
+import { Logger } from "logger/mod.ts";
+import { emptyDirSync, expandGlobSync } from "std/fs/mod.ts";
+import { join, resolve } from "std/path/mod.ts";
 import { parse } from "std/yaml/mod.ts";
 import { createCanvas } from "skia_canvas/mod.ts";
 import convert from "svg_to_png/mod.ts";
-import { ConfigMode, ChangeLogType, default as ConfigBuild } from "./config_build.ts";
+import { ConfigMode, ChangeLogType, default as Config } from "./build.config.ts";
+
+const logger = new Logger();
 
 export type Flags = Record<string, boolean>;
 
@@ -27,19 +30,19 @@ type LocaleItem = {
 type LocalesDictionary = { [key: string]: LocaleItem };
 
 class Builder {
-  private _mode: ConfigMode;
-  private _config: ConfigBuild;
-  private _iconEntries: IconEntries = {};
-  private _flags: Flags = {};
-  private _fileData = "";
+  #mode: ConfigMode;
+  #config: Config;
+  #iconEntries: IconEntries = {};
+  #flags: Flags = {};
+  #fileData = "";
 
   constructor(mode: ConfigMode, flags: Flags) {
-    this._mode = mode;
-    this._flags = flags;
-    this._config = new ConfigBuild(mode);
+    this.#mode = mode;
+    this.#flags = flags;
+    this.#config = new Config(mode);
   }
 
-  private _msg(str: string, skipped = false, replace = false) {
+  #msg(str: string, skipped = false, replace = false) {
     // ASCII escape character
     const ESC = "\x1b";
     // control sequence introducer
@@ -50,33 +53,31 @@ class Builder {
       Deno.writeSync(Deno.stdout.rid, new TextEncoder().encode(CSI + "K")); // clears from cursor to line end
     }
 
-    console.info(
-      `%c[BUILD:${this._mode.toUpperCase()}] ${str} ${skipped ? "(skipped)" : ""}`,
-      `color: ${skipped ? "orange" : "green"}`
-    );
+    if (!skipped) {
+      logger.info(`[BUILD:${this.#mode.toUpperCase()}] ${str}`);
+    } else {
+      logger.warn(`[BUILD:${this.#mode.toUpperCase()}] ${str}SKIPPED`);
+    }
   }
 
-  private _clean(skip = false) {
-    this._msg("Cleaning build directory...", !skip);
-
+  #clean(skip = false) {
+    this.#msg("Cleaning build directory...", !skip);
     if (!skip) return;
-
-    emptyDirSync(this._config.buildDir);
-
-    this._msg("Cleaning build directory...ok", !skip, true);
+    emptyDirSync(this.#config.buildDir);
+    this.#msg("Cleaning build directory...OK", !skip, true);
   }
 
-  private async _icons(skip = false) {
-    this._msg("Generating icons...", !skip);
+  async #icons(skip = false) {
+    this.#msg("Generating icons...", !skip);
 
     if (!skip) return;
 
     const iconSet: string[] = [];
 
-    emptyDirSync(this._config.iconsDir);
+    emptyDirSync(this.#config.iconsDir);
 
-    for (const size of this._config.popupIconSizes) {
-      for (const [label, color] of Object.entries(this._config.popupIconColors)) {
+    for (const size of this.#config.popupIconSizes) {
+      for (const [label, color] of Object.entries(this.#config.popupIconColors)) {
         const canvas = createCanvas(size, size);
         const ctx = canvas.getContext("2d");
         const center = size * 0.5;
@@ -94,62 +95,62 @@ class Builder {
         ctx.strokeStyle = "transparent";
         ctx.stroke();
 
-        const iconPath = join(this._config.iconsDir, `${label}@${size}.png`);
+        const iconPath = join(this.#config.iconsDir, `${label}@${size}.png`);
         canvas.save(iconPath, "png");
 
-        this._iconEntries[label] ??= {};
-        this._iconEntries[label][size] = iconPath.replace(`${this._config.buildDir}/`, "");
+        this.#iconEntries[label] ??= {};
+        this.#iconEntries[label][size] = iconPath.replace(`${this.#config.buildDir}/`, "");
       }
     }
 
-    for (const size of this._config.iconSizes) {
-      if (this._flags.verbose)
-        iconSet.push(join(this._config.iconsDir, `icon@${size}.png`).replace(`${this._config.buildDir}/`, ""));
+    for (const size of this.#config.iconSizes) {
+      if (this.#flags.verbose)
+        iconSet.push(join(this.#config.iconsDir, `icon@${size}.png`).replace(`${this.#config.buildDir}/`, ""));
 
       await convert(
-        Deno.realPathSync(join(this._config.resourcesDir, "icon.svg")),
-        join(this._config.iconsDir, `icon@${size}.png`),
+        Deno.realPathSync(join(this.#config.resourcesDir, "icon.svg")),
+        join(this.#config.iconsDir, `icon@${size}.png`),
         { width: size, height: size }
       );
     }
 
-    this._msg("Generating icons...ok", !skip, true);
+    this.#msg("Generating icons...OK", !skip, true);
 
-    if (this._flags.verbose) {
-      console.table(this._iconEntries);
+    if (this.#flags.verbose) {
+      console.table(this.#iconEntries);
       console.table(iconSet);
     }
   }
 
-  private async _covers(skip = false) {
-    this._msg("Generating covers...", !skip);
+  async #covers(skip = false) {
+    this.#msg("Generating covers...", !skip);
 
     if (!skip) return;
 
-    for (const [imageName, size] of Object.entries(this._config.promoSizes)) {
+    for (const [imageName, size] of Object.entries(this.#config.promoSizes)) {
       await convert(
-        Deno.realPathSync(join(this._config.resourcesDir, "cover.svg")),
+        Deno.realPathSync(join(this.#config.resourcesDir, "cover.svg")),
         join(
-          this._config.buildDir,
+          this.#config.buildDir,
           "..",
-          (this._config.manifest.name as string).toLowerCase().replace(/\s/g, "-") + `-${imageName}.png`
+          (this.#config.manifest.name as string).toLowerCase().replace(/\s/g, "-") + `-${imageName}.png`
         ),
         { width: size.width, height: size.height }
       );
     }
 
-    this._msg("Generating covers...ok", !skip, true);
+    this.#msg("Generating covers...OK", !skip, true);
 
-    if (this._flags.verbose)
+    if (this.#flags.verbose)
       console.table(
-        Object.entries(this._config.promoSizes).map((entry) => [
-          `${(this._config.manifest.name as string).toLowerCase().replace(/\s/g, "-")}-${entry[0]}.png`,
+        Object.entries(this.#config.promoSizes).map((entry) => [
+          `${(this.#config.manifest.name as string).toLowerCase().replace(/\s/g, "-")}-${entry[0]}.png`,
           `${entry[1].width}x${entry[1].height}`,
         ])
       );
   }
 
-  private _codeCleaner(options?: CodeCleanerOptions) {
+  #codeCleaner(options?: CodeCleanerOptions) {
     let blockOpen: RegExp, blockClose: RegExp;
     let inDebug = false;
 
@@ -162,7 +163,7 @@ class Builder {
       blockClose = new RegExp(closing, "g");
     }
 
-    this._fileData = this._fileData
+    this.#fileData = this.#fileData
       .split("\n")
       .filter((line) => {
         if (options?.debug) {
@@ -189,62 +190,60 @@ class Builder {
       .join("\n");
   }
 
-  private _preprocessor(context: { [key: string]: string } = {}) {
+  #preprocessor(context: { [key: string]: string } = {}) {
     for (const [key, value] of Object.entries(context)) {
       const re = new RegExp(`"%{${key}}%"`, "g");
-      this._fileData = this._fileData.replace(re, value);
+      this.#fileData = this.#fileData.replace(re, value);
     }
   }
 
-  private _recursive(src: string, dest: string) {
-    for (const dirEntry of Deno.readDirSync(src)) {
-      if (this._mode === "release" && this._config.excludedFiles.includes(dirEntry.name)) continue;
+  #files(skip = false) {
+    this.#msg("Preprocessing and copying files...", !skip);
+    if (!skip) return;
 
+    const dirEntries = expandGlobSync(join("**", "*"), {
+      root: this.#config.sourceDir,
+      ...(this.#mode === "release" ? { exclude: this.#config.excludedFiles } : {}),
+    });
+
+    for (const dirEntry of dirEntries) {
       if (dirEntry.isDirectory) {
-        emptyDirSync(join(dest, dirEntry.name));
-        this._recursive(join(src, dirEntry.name), join(dest, dirEntry.name));
+        emptyDirSync(join(this.#config.buildDir, dirEntry.path.replace(resolve(this.#config.sourceDir), "")));
       } else if (dirEntry.isFile) {
-        this._fileData = Deno.readTextFileSync(join(src, dirEntry.name));
+        this.#fileData = Deno.readTextFileSync(dirEntry.path);
         if (dirEntry.name.endsWith(".js")) {
-          if (this._mode === "release")
-            this._codeCleaner({
+          if (this.#mode === "release")
+            this.#codeCleaner({
               debug: true,
               comments: true,
             });
-          this._preprocessor({
-            generatedIcons: JSON.stringify(this._iconEntries, null, this._mode === "debug" ? 2 : undefined),
+          this.#preprocessor({
+            generatedIcons: JSON.stringify(this.#iconEntries, null, this.#mode === "debug" ? 2 : undefined),
           });
         }
-        Deno.writeTextFileSync(join(dest, dirEntry.name), this._fileData);
+        Deno.writeTextFileSync(
+          join(this.#config.buildDir, dirEntry.path.replace(resolve(this.#config.sourceDir), "")),
+          this.#fileData
+        );
       }
     }
+
+    this.#msg("Preprocessing and copying files...OK", !skip, true);
   }
 
-  private _files(skip = false) {
-    this._msg("Preprocessing and copying files...", !skip);
-
-    if (!skip) return;
-
-    this._recursive(this._config.sourceDir, this._config.buildDir);
-
-    this._msg("Preprocessing and copying files...ok", !skip, true);
-  }
-
-  private _manifest(skip = false) {
-    this._msg("Generating manifest.json...", !skip);
-
+  #manifest(skip = false) {
+    this.#msg("Generating manifest.json...", !skip);
     if (!skip) return;
 
     Deno.writeTextFileSync(
-      join(this._config.buildDir, "manifest.json"),
-      JSON.stringify(this._config.manifest, null, this._mode === "debug" ? 2 : undefined)
+      join(this.#config.buildDir, "manifest.json"),
+      JSON.stringify(this.#config.manifest, null, this.#mode === "debug" ? 2 : undefined)
     );
-
-    this._msg("Generating manifest.json...ok", !skip, true);
+    this.#msg("Generating manifest.json...OK", !skip, true);
   }
 
-  private _changelog(skip = false) {
-    this._msg("Generating changelog.md...", !skip);
+  #changelog(skip = false) {
+    this.#msg("Generating changelog.md...", !skip);
 
     if (!skip) return;
 
@@ -257,7 +256,7 @@ class Builder {
 
     const links: string[] = [];
 
-    for (const change of this._config.changelog) {
+    for (const change of this.#config.changelog) {
       text.push(`## [${change.version}][${change.version.toLowerCase()}]${change.date ? ` - ${change.date}` : ""}\n`);
       ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"].forEach((action) => {
         if (action.toLowerCase() in change) {
@@ -271,18 +270,18 @@ class Builder {
       links.push(`[${change.version.toLowerCase()}]: ${change.url}`);
     }
 
-    Deno.writeTextFileSync(join(this._config.buildDir, "changelog.md"), `${text.join("\n")}\n${links.join("\n")}`);
+    Deno.writeTextFileSync(join(this.#config.buildDir, "changelog.md"), `${text.join("\n")}\n${links.join("\n")}`);
 
-    this._msg("Generating changelog.md...ok", !skip, true);
+    this.#msg("Generating changelog.md...OK", !skip, true);
   }
 
-  private _locales(skip = false) {
-    this._msg("Generating locale files...", !skip);
+  #locales(skip = false) {
+    this.#msg("Generating locale files...", !skip);
 
     if (!skip) return;
 
     const locales: { [key: string]: LocalesDictionary } = {};
-    const yamlFile = Deno.readTextFileSync(join(this._config.resourcesDir, "locales.yaml"));
+    const yamlFile = Deno.readTextFileSync(join(this.#config.resourcesDir, "locales.yaml"));
     const jsonFile = parse(yamlFile) as LocalesDictionary;
 
     // build each locale dictionary
@@ -299,51 +298,46 @@ class Builder {
 
     // save all locale dictionaries
     for (const [lang, dict] of Object.entries(locales)) {
-      emptyDirSync(join(this._config.buildDir, "_locales", lang));
+      emptyDirSync(join(this.#config.buildDir, "_locales", lang));
       Deno.writeTextFileSync(
-        join(this._config.buildDir, "_locales", lang, "messages.json"),
-        JSON.stringify(dict, null, this._mode === "debug" ? 2 : undefined)
+        join(this.#config.buildDir, "_locales", lang, "messages.json"),
+        JSON.stringify(dict, null, this.#mode === "debug" ? 2 : undefined)
       );
     }
 
-    this._msg("Generating locale files...ok", !skip, true);
+    this.#msg("Generating locale files...OK", !skip, true);
   }
 
-  private _license(skip = false) {
-    this._msg("Generating license file...", !skip);
-
+  #license(skip = false) {
+    this.#msg("Generating license file...", !skip);
     if (!skip) return;
-
-    Deno.copyFileSync("LICENSE", join(this._config.buildDir, "license.txt"));
-
-    this._msg("Generating license file...ok", !skip, true);
+    Deno.copyFileSync("LICENSE", join(this.#config.buildDir, "license.txt"));
+    this.#msg("Generating license file...OK", !skip, true);
   }
 
-  private _setup() {
-    this._msg("Setting up build...");
-    this._clean(this._flags.clean);
+  #setup() {
+    this.#msg("Setting up build...");
+    this.#clean(this.#flags.clean);
   }
 
-  private async _build() {
-    await this._icons(this._flags.icons);
-    await this._covers(this._flags.covers);
-    this._files(this._flags.copy);
-    this._manifest(this._flags.manifest);
-    this._locales(this._flags.locales);
-    this._changelog(this._flags.changelog);
-    this._license(this._flags.license);
+  async #build() {
+    await this.#icons(this.#flags.icons);
+    await this.#covers(this.#flags.covers);
+    this.#files(this.#flags.copy);
+    this.#manifest(this.#flags.manifest);
+    this.#locales(this.#flags.locales);
+    this.#changelog(this.#flags.changelog);
+    this.#license(this.#flags.license);
   }
 
-  private _tearDown() {
-    this._msg("Tearing down build...");
+  #tearDown() {
+    this.#msg("Tearing down build...");
   }
 
   async start() {
-    console.log();
-    this._setup();
-    await this._build();
-    this._tearDown();
-    console.log();
+    this.#setup();
+    await this.#build();
+    this.#tearDown();
   }
 }
 
