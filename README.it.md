@@ -1,5 +1,7 @@
 # Allerta Meteo Liguria (Estensione per Chrome)
 
+![Allerta Meteo Liguria Cover](./extension/resources/cover.svg)
+
 Altre lingue disponibili: [en](README.md)
 
 Semplice estensione per browser basati su Chromium che si interfaccia con il sito della Protezione Civile della Liguria e notifica in tempo reale eventuali aggiornamenti di stato rerlativi alle allerte meteo.
@@ -7,7 +9,9 @@ Semplice estensione per browser basati su Chromium che si interfaccia con il sit
 ## Funzionalità
 
 * Icona popup con colore dell'allerta meteo e tooltip con data ultimo aggiornamento e severità allerta meteo;
-* Popup con cartina della Liguria nelle colorazioni delle allerte, e collegamenti a bollettini allerte e previsioni;
+* Popup con cartina della Liguria nelle colorazioni delle allerte, e collegamenti a:
+  * siti della Protezione Civile e di ARPA Liguria;
+  * bollettini allerte e previsioni;
 * Notifica desktop con severità dell'allerta meteo, ulteriori informazioni sui possibili rischi, e collegamenti ai siti della Protezione Civile e di ARPA Liguria.
 * Opzioni per la personalizzazione (o eventuale correzione) dei collegamenti ai siti di Protezione Civile e ARPA Liguria, e dell'intervallo di tempo per il controllo degli aggiornamenti.
 
@@ -37,36 +41,36 @@ Nella documentazione sul sito ufficiale puoi trovare tutte le informazioni neces
 ```bash
 > deno task
   Available tasks:
-  - clean
-  - build-debug
-  - build-release
-  - test-chrome
-  - pack-extension
-  - bump
-  - test-chrome-setup
-  - build-test-debug
-  - build-test-release
-  - build-pack
-  - tools-collector
+  - build:clean
+  - build:bump
+  - build:debug
+  - build:release
+  - test:chrome
+  - test:chrome:dry-run
+  - test:chrome:debug
+  - test:chrome:release
+  - publish:package
+  - tools:collector
 ```
 
-* `clean`: rimuove le directory della cache temporanea e delle build;
-* `build-debug`: crea la build di debug dell'estensione;
-* `build-release`: crea la build di release dell'estensione, priva di commenti e sezioni di log;
-* `test-chrome`: esegue un'istanza di **chrome** con profilo utente temporaneo nella cartella di cache, con tutte le estensioni disabilitate, tranne la build di debug;
-* `pack-extension`: crea il file .zip dalla build di release;
-* `bump`: incrementa la versione (maggiore, minore, o patch);
-* `test-chrome-setup`: inizializza cartella di cache e profilo utente temporaneo senza avviare istanza di **chrome**;
-* `build-test-debug`: crea la build di debug e avvia l'istanza di **chrome** usandola come estensione;
-* `build-test-release`: crea la build di release e avvia l'istanza di **chrome** usandola come estensione;
-* `build-pack`: crea la build di release, crea la grafica da caricare nel web store, e crea il file .zip
-* `tools-collector`: avvia lo strumento di webscraping che colleziona i messaggi delle allerte dal sito web (usato per collezionare le stringhe che verranno usato in futuro per la localizzazione delle allerte).
+* `build:clean`: rimuove le directory della cache temporanea e delle build;
+* `build:bump`: incrementa la versione (maggiore, minore, o patch) nel manifest e nel changelog;
+* `build:debug`: crea la build di debug dell'estensione;
+* `build:release`: crea la build di release dell'estensione, priva di commenti e sezioni di log;
+* `test:chrome`: esegue un'istanza di **chrome** con profilo utente temporaneo nella cartella di cache, con tutte le estensioni disabilitate, tranne la build di debug;
+* `test:chrome:dry-run`: inizializza cartella di cache e profilo utente temporaneo senza avviare istanza di **chrome**;
+* `test:chrome:debug`: crea la build di debug e avvia l'istanza di **chrome** usandola come estensione;
+* `test:chrome:release`: crea la build di release e avvia l'istanza di **chrome** usandola come estensione;
+* `publish:package`: crea la build di release, crea la grafica da caricare nel web store, e crea il file .zip
+* `tools:collector`: avvia lo strumento di webscraping che colleziona i messaggi delle allerte dal sito web (usato per collezionare le stringhe che verranno usato in futuro per la localizzazione delle allerte).
 
-Per i task `build-*`, è possibile dichiarare le variabili ambiente `PRODUCTION=debug` (default) o `PRODUCTION=release`, e `FLAGS=[clean,icons,covers,copy,manifest,locales,license,changelog,verbose]` per passare parametri alla build. I flag possono essere specificati con l'intestazione `--no-` in modo da essere disabilitati (fare riferimento a [build.ts](build/build.ts) maggiori informazioni relative ai flag di default).
+Per i task `build:*`, è possibile dichiarare le variabili ambiente `PRODUCTION=debug` (default) o `PRODUCTION=release`, e `FLAGS=[clean,icons,covers,copy,manifest,locales,license,changelog,verbose]` per passare parametri alla build. I flag possono essere specificati con l'intestazione `--no-` in modo da essere disabilitati (fare riferimento a [build.ts](build/build.ts) maggiori informazioni relative ai flag di default).
 
-Per i task `test-chrome-*`, è possibile dichiarare le variabili ambiente `PRODUCTION=debug` (default) o `PRODUCTION=release`, e `FLAGS=[setup]` per specificare quale target e azione eseguire.
+Per il task `build:bump` è possibile specificare la parte di versione da incrementare con la variabile ambiente `RELEASE=[major|minor|patch]` (di default verrà incrementata la versione patch).
 
-Per i task `tools-*`, è possibile dichiarare la variabile ambiente `FLAGS` per specificare eventuali opzioni (fare riferimento al codice del tool specifico per maggiori informazioni).
+Per i task `test:chrome:*`, è possibile dichiarare le variabili ambiente `PRODUCTION=debug` (default) o `PRODUCTION=release`, e `FLAGS=[dry-run]` per specificare quale target e azione eseguire.
+
+Per i task `tools:*`, è possibile dichiarare la variabile ambiente `FLAGS` per specificare eventuali opzioni (fare riferimento al codice del tool specifico per maggiori informazioni).
 
 ## Struttura del progetto
 

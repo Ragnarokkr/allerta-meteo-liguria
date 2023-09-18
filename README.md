@@ -1,5 +1,7 @@
 # Allerta Meteo Liguria (Chrome Extension)
 
+![Allerta Meteo Liguria Cover](./extension/resources/cover.svg)
+
 Other languages available: [it](README.it.md)
 
 Simple extension for Chromium-based browsers that interfaces with the Liguria Civil Protection website and notifies you of any status updates relating to weather alerts in real time.
@@ -7,7 +9,9 @@ Simple extension for Chromium-based browsers that interfaces with the Liguria Ci
 ## Features
 
 * Colored popup icon accordingingly to the weather alert and tooltip with last update date and weather alert severity;
-* Popup with map of Liguria in the colors of the alerts, and links to bulletins alerts and forecasts;
+* Popup with map of Liguria in the colors of the alerts, and links to:
+  * Civil Protection and ARPA Liguria websites;
+  * bulletins alerts and forecasts;
 * Desktop notification with weather alert severity, further information on possible risks, and links to the Civil Protection and ARPA Liguria sites.
 * Options for customizing (or possibly correcting) the links to the Civil Protection and ARPA Liguria sites, and the time interval for checking for updates.
 
@@ -38,36 +42,36 @@ From the documentation on the official website it's possible to find the [instal
 ```bash
 > deno task
   Available tasks:
-  - clean
-  - build-debug
-  - build-release
-  - test-chrome
-  - pack-extension
-  - bump
-  - test-chrome-setup
-  - build-test-debug
-  - build-test-release
-  - build-pack
-  - tools-collector
+  - build:clean
+  - build:bump
+  - build:debug
+  - build:release
+  - test:chrome
+  - test:chrome:dry-run
+  - test:chrome:debug
+  - test:chrome:release
+  - publish:package
+  - tools:collector
 ```
 
-* `clean`: remove temporary cache and build directories;
-* `build-debug`: build the debug version of the extension;
-* `build-release`: build the release version of extension, stripped of comments and log sections;
-* `test-chrome`: run an instance of **chrome** with a temporary user profile in the cache folder, with all extensions disabled, except the debug build;
-* `pack-extension`: create a .zip file from release build;
-* `bump`: increment the version (can increment major, minor, or patch);
-* `test-chrome-setup`: initialize cache folder and temporary user profile without starting instance of **chrome**;
-* `build-test-debug`: create the debug build and start the **chrome** instance using it as an extension;
-* `build-test-release`: create the release build and start the **chrome** instance using it as an extension;
-* `build-pack`: create the release build, create the graphics to upload on the web store, and create the .zip file
-* `tools-collector`: starts a web scraping tool that collects messages strings from the website. (Used to collect strings for future alerts localizations).
+* `build:clean`: remove temporary cache and build directories;
+* `build:bump`: increment the version (can increment major, minor, or patch) in manifest and changelog;
+* `build:debug`: build the debug version of the extension;
+* `build:release`: build the release version of extension, stripped of comments and log sections;
+* `test:chrome`: run an instance of **chrome** with a temporary user profile in the cache folder, with all extensions disabled, except the debug build;
+* `test:chrome:dry-run`: initialize cache folder and temporary user profile without starting instance of **chrome**;
+* `test:chrome:debug`: create the debug build and start the **chrome** instance using it as an extension;
+* `test:chrome:release`: create the release build and start the **chrome** instance using it as an extension;
+* `publish:package`: create the release build, create the graphics to upload on the web store, and create the .zip file
+* `tools:collector`: starts a web scraping tool that collects messages strings from the website. (Used to collect strings for future alerts localizations).
 
-For `build-*` tasks, it is possibile to declare `PRODUCTION=debug` (default) or `PRODUCTION=release`, and `FLAGS=[clean,icons,covers,copy,manifest,locales,license,changelog,verbose]` environment variables to pass to the build. The flags can be specified with a leading `--no-` to disable the specific flag. (Read [build.ts](build/build.ts) for more info about the default flags.)
+For `build:*` tasks, it is possibile to declare `PRODUCTION=debug` (default) or `PRODUCTION=release`, and `FLAGS=[clean,icons,covers,copy,manifest,locales,license,changelog,verbose]` environment variables to pass to the build. The flags can be specified with a leading `--no-` to disable the specific flag. (Read [build.ts](build/build.ts) for more info about the default flags.)
 
-For `test-chrome-*` tasks, it is possible to declare `PRODUCTION=debug` (default) or `PRODUCTION=release`, and `FLAGS=[setup]` environment variables to specify which target and action to perform.
+For `build:bump` task, it is possible to specify the version part to bump with `RELEASE=[major|minor|patch]` environment variable. (By default it will bump the patch version.)
 
-For `tools-*` tasks, it is possible to declare the `FLAGS` environment variable to specify options. (Read the specific tool's code for more info.)
+For `test:chrome:*` tasks, it is possible to declare `PRODUCTION=debug` (default) or `PRODUCTION=release`, and `FLAGS=[dry-run]` environment variables to specify which target and action to perform.
+
+For `tools:*` tasks, it is possible to declare the `FLAGS` environment variable to specify options. (Read the specific tool's code for more info.)
 
 ## Project Structure
 
