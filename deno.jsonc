@@ -1,0 +1,22 @@
+{
+  "imports": {
+    "std/": "https://deno.land/std@0.201.0/",
+    "logger/": "https://deno.land/x/logger@v1.1.2/",
+    "skia_canvas/": "https://deno.land/x/skia_canvas@0.5.4/",
+    "svg_to_png/": "https://deno.land/x/svg_to_png@v1.1.0/",
+    "zip/": "https://deno.land/x/zip@v1.2.5/",
+    "deno_dom/": "https://deno.land/x/deno_dom@v0.1.38/"
+  },
+  "tasks": {
+    "build:clean": "rm -fr .cache ; rm -fr dist",
+    "build:bump": "deno run --allow-env=RELEASE --allow-read=./extension --allow-write=./extension ./build/bump.ts",
+    "build:debug": "PRODUCTION=debug deno run --allow-env --allow-read --allow-write --allow-run --allow-net=127.0.0.1 --allow-ffi --unstable ./build/build.ts",
+    "build:release": "PRODUCTION=release deno run --allow-env --allow-read --allow-write --allow-run --allow-net=127.0.0.1 --allow-ffi --unstable ./build/build.ts",
+    "test:chrome": "deno run --allow-run=google-chrome --allow-env=PRODUCTION,FLAGS --allow-read=. --allow-write=. ./build/test_chrome.ts",
+    "test:chrome:dry-run": "FLAGS=dry-run deno task test:chrome",
+    "test:chrome:debug": "deno task build:debug && deno task test:chrome",
+    "test:chrome:release": "PRODUCTION=release deno task build:release && deno task test:chrome",
+    "publish:package": "FLAGS=covers,changelog deno task build:release && deno run --allow-run --allow-env --allow-read --allow-write ./build/pack_extension.ts",
+    "tools:collector": "cd tools && deno run --allow-env --allow-net --allow-read --allow-write collector.ts && cd .."
+  }
+}
