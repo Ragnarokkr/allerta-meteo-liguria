@@ -51,7 +51,7 @@ export default class ConfigBuild {
   }
 
   get buildDir() {
-    return this.mode === "debug" ? join("dist", "debug") : join("dist", "release");
+    return join('dist', this.mode === "debug" ? "debug" : "release");
   }
 
   get iconsDir() {
