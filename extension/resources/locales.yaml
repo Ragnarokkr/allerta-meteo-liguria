@@ -1,12 +1,12 @@
 ---
-# This is the dictionary for all supported languages. Not for direct use. Please use the
-# building tools to process it into valid JSON locales.
+# This is the dictionary for all supported languages. Not for direct use.
+# Please use the building tools to process it into valid JSON locales.
 
 extDescription:
   message:
     it: Estensione non ufficiale per le allerte meteo della Liguria
     en: Unofficial extension for Liguria weather alerts
-  description: Extension descrption
+  description: Extension description
 action_error:
   message:
     it: Servizio momentaneamente irraggiungibile
@@ -16,7 +16,7 @@ action_update:
   message:
     it: Aggiornamento del $date$ - $risk$
     en: Updated on $date$ - $risk$
-  description: Message shown on the action icon on every update
+  description: Message shown action icon tooltip on every update
   placeholders:
     date:
       content: "$1"
@@ -127,8 +127,7 @@ options_settings_dialog_saved:
   description: Text for saved settings dialog
 options_disclaimer_text:
   message:
-    it:
-      Sebbene i dati forniti da questa estensione vengano ottenuti direttamente
+    it: Sebbene i dati forniti da questa estensione vengano ottenuti direttamente
       dal sito delle allerte meteo della Protezione Civile della Liguria, si consiglia
       di non fare mai affidamento ai dati qui ottenuti, ma di verificare sempre alla
       fonte tramite i link forniti dall'estensione stessa.
