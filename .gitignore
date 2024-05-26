@@ -1,0 +1,7 @@
+.env
+.cache/
+*.zip
+build.lock
+dist/
+
+node_modules/

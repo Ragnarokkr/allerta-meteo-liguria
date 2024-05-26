@@ -1,0 +1,112 @@
+@font-face {
+  font-family: "Overpass";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  src: url("/assets/fonts/Overpass-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Overpass";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  src: url("/assets/fonts/Overpass-Italic-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Overpass Mono";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  src: url("/assets/fonts/OverpassMono-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+:root {
+  font-size: 16px;
+
+  --max-width: 75vw;
+
+  --gap: 16px; /* default gap size */
+  --margin-sm: calc(var(--gap) * 1); /* small margin, equivalent to 16px */
+  --margin-md: calc(var(--gap) * 2); /* medium margin, equivalent to 32px */
+  --margin-lg: calc(var(--gap) * 3); /* large margin, equivalent to 48px */
+
+  --padding-sm: calc(var(--gap) / 2); /* small padding, equivalent to 8px */
+  --padding-md: calc(var(--gap)); /* medium padding, equivalent to 16px */
+  --padding-lg: calc(var(--gap) * 1.5); /* large padding, equivalent to 24px */
+
+  --border-width-sm: 1px; /* small border width, equivalent to 1px */
+  --border-width-md: 2px; /* medium border width, equivalent to 2px */
+  --border-width-lg: 3px; /* large border width, equivalent to 3px */
+
+  --border-radius-sm: calc(
+    var(--gap) / 4
+  ); /* small border radius, equivalent to 4px */
+  --border-radius-md: calc(
+    var(--gap) / 2
+  ); /* medium border radius, equivalent to 8px */
+  --border-radius-lg: calc(
+    var(--gap) * 1.5
+  ); /* large border radius, equivalent to 12px */
+
+  --font-size-heading-1: 3.815rem;
+  --font-size-heading-2: 3.052rem;
+  --font-size-heading-3: 2.441rem;
+  --font-size-heading-4: 1.953rem;
+  --font-size-heading-5: 1.563rem;
+  --font-size-heading-6: 1.25rem;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.8rem;
+  --font-size-xsm: 0.64rem;
+
+  --icon-size: 1.25rem;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+
+  font-family: "Overpass", sans-serif;
+  font-size: var(--font-size-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
+}
+
+a,
+button,
+input {
+  font-family: "Overpass", sans-serif;
+}
+
+h1 {
+  font-size: var(--font-size-heading-1);
+}
+h2 {
+  font-size: var(--font-size-heading-2);
+}
+h3 {
+  font-size: var(--font-size-heading-3);
+}
+h4 {
+  font-size: var(--font-size-heading-4);
+}
+h5 {
+  font-size: var(--font-size-heading-5);
+}
+h6 {
+  font-size: var(--font-size-heading-6);
+}
+.small {
+  font-size: var(--font-size-sm);
+}
+.xsmall {
+  font-size: var(--font-size-xsm);
+}

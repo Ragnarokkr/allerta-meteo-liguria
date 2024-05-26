@@ -1,0 +1,86 @@
+:root {
+  --color-blue: hsl(212 65% 63%);
+  --color-blue-secondary: hsl(212, 62%, 75%);
+  --color-green: hsl(85 100% 36%);
+  --color-green-secondary: hsl(85 50% 60%);
+  --color-yellow: hsl(51 100% 50%);
+  --color-yellow-secondary: hsl(51, 62%, 68%);
+  --color-orange: hsl(33 100% 50%);
+  --color-orange-secondary: hsl(33, 62%, 68%);
+  --color-red: hsl(0 100% 44%);
+  --color-red-secondary: hsl(0, 62%, 68%);
+
+  --color-neutral-1: hsl(0 0% 10%);
+  --color-neutral-2: hsl(0 0% 20%);
+  --color-neutral-3: hsl(0 0% 30%);
+  --color-neutral-4: hsl(0 0% 40%);
+  --color-neutral-5: hsl(0 0% 50%);
+  --color-neutral-6: hsl(0 0% 60%);
+  --color-neutral-7: hsl(0 0% 70%);
+  --color-neutral-8: hsl(0 0% 80%);
+  --color-neutral-9: hsl(0 0% 90%);
+
+  --color-black: var(--color-neutral-1);
+  --color-white: var(--color-neutral-9);
+
+  --color-info: var(--color-blue);
+  --color-info-secondary: var(--color-blue-secondary);
+  --color-success: var(--color-green);
+  --color-success-secondary: var(--color-green-secondary);
+  --color-warning: var(--color-yellow);
+  --color-warning-secondary: var(--color-yellow-secondary);
+  --color-error: var(--color-red);
+  --color-error-secondary: var(--color-red-secondary);
+
+  --color-surface-normal: hsl(211 60% 61%);
+  --color-surface-hover: hsl(211 47% 55%);
+  --color-surface-active: hsl(211 38% 49%);
+
+  --color-surface-input-normal: hsl(210 60% 96%);
+  --color-surface-input-hover: hsl(210 60% 94%);
+  --color-surface-input-active: hsl(211 61% 88%);
+
+  --color-surface-card: var(--color-neutral-7);
+
+  --color-text: var(--color-black);
+  --color-background: var(--color-white);
+  --color-accent: hsl(211 60% 61%);
+
+  --shadow-level-1: 0 1px 2px -2px hsla(211 38% 21% / 16%),
+    0 3px 6px 0px hsla(211 38% 21% / 12%), 0 5px 12px 4px hsla(211 38% 21% / 9%);
+
+  --shadow-level-2: 0 3px 6px -4px hsla(211 38% 21% / 12%),
+    0 6px 16px 0px hsla(211 38% 21% / 8%), 0 9px 28px 8px hsla(211 38% 21% / 5%);
+
+  --shaodw-level-3: 0 6px 16px -8px hsla(211 38% 21% / 8%),
+    0 9px 28px 0px hsla(211 38% 21% / 5%),
+    0 12px 48px 16px hsla(211 38% 21% / 3%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-blue: hsl(212 65% 33%);
+    --color-blue-secondary: hsl(212, 62%, 45%);
+
+    --color-text: var(--color-white);
+    --color-background: var(--color-black);
+
+    --color-surface-normal: hsl(210 38% 46%);
+    --color-surface-hover: hsl(211 38% 37%);
+    --color-surface-active: hsl(211 39% 27%);
+
+    --color-surface-input-normal: hsl(210 60% 14%);
+    --color-surface-input-hover: hsl(210 60% 16%);
+    --color-surface-input-active: hsl(211 61% 22%);
+
+    --color-surface-card: var(--color-neutral-2);
+  }
+}
+
+body {
+  color-scheme: light dark;
+
+  color: var(--color-text);
+  background-color: var(--color-background);
+  accent-color: var(--color-accent);
+}

@@ -1,0 +1,189 @@
+---
+# This is the dictionary for all supported languages. Not for direct use.
+# Please use the building tools to process it into valid JSON locales.
+
+extDescription:
+  message:
+    it: Estensione non ufficiale per le allerte meteo della Liguria
+    en: Unofficial Liguria weather alerts extension
+  description: Extension description
+
+updating:
+  message:
+    it: Aggiornamento in corso...
+    en: Updating...
+  description: Message shown on the action icon when an update is in progress
+
+serviceUnavailable:
+  message:
+    it: Servizio non disponbile
+    en: Service unavailable
+  description: Message shown on the action icon when the service is unreachable
+
+updateAsOf:
+  message:
+    it: Aggiornamento del $date$ - $risk$
+    en: Update as of $date$ - $risk$
+  description: Message shown action icon tooltip on every update
+  placeholders:
+    date:
+      content: "$1"
+      example: 24/07/2023 15:40:00
+    risk:
+      content: "$2"
+      example: allerta idrogeologica per temporali
+
+alertBulletin:
+  message:
+    it: Bollettino Allerte
+    en: Alert Bulletin
+  description: Label for first button in action popup
+
+forecastBulletin:
+  message:
+    it: Bollettino Previsioni
+    en: Forecast Bulletin
+  description: Label for second button in action popup
+
+civilProtection:
+  message:
+    it: Protezione Civile
+    en: Civil Protection
+  description: Label for first button in notification popup
+
+arpal:
+  message:
+    it: ARPA Liguria
+    en: ARPA Liguria
+  description: Label for second button in notification popup
+
+settings:
+  message:
+    it: Impostazioni
+    en: Settings
+  description: Label for settings section in options page
+
+about:
+  message:
+    it: Informazioni
+    en: About
+  description: Label for about section in options page
+
+privacy:
+  message:
+    it: Privacy
+    en: Privacy
+  description: Label for privacy section in options page
+
+terms:
+  message:
+    it: Termini e Condizioni
+    en: Terms and Conditions
+  description: Label for terms and conditions section in options page
+
+license:
+  message:
+    it: Licenza
+    en: License
+  description: Label for license section in options page
+
+credits:
+  message:
+    it: Crediti
+    en: Credits
+  description: Label for credits section in options page
+
+support:
+  message:
+    it: Supporto
+    en: Support
+  description: Label for support section in options page
+
+urlAlertLabel:
+  message:
+    it: "URL Protezione Civile:"
+    en: "Civil Protection URL:"
+  description: Label for civil protection webpage URL in options page settings section
+
+urlAlertHelp:
+  message:
+    it: Usato come fonte per i dati e per il pulsante di apertura del sito nel popup di notifica.
+    en: Used as source for data and as website opening button in notification popup.
+  description: Help text for civil protection webpage URL input field
+
+urlArpalLabel:
+  message:
+    it: "URL Arpal:"
+    en: "ARPAL URL:"
+  description: Label for ARPAL webpage URL in options page settings section
+
+urlArpalHelp:
+  message:
+    it: Usato solo per il pulsante di apertura del sito nel popup di notifica.
+    en: Only used as website opening button in notification popup.
+  description: Help text for ARPAL webpage URL input field
+
+updateIntervalLabel:
+  message:
+    it: "Intervallo aggiornamento:"
+    en: "Update interval:"
+  description: Label for update interval time in options page settings section
+
+updateIntervalHelp:
+  message:
+    it: Minuti di attesa prima del successivo controllo per gli aggiornamenti. (min:$min$ - max:$max$)
+    en: Time in minutes before the next update check. (min:$min$ - max:$max$)
+  description: Help text for update interval time input field
+  placeholders:
+    min:
+      content: "$1"
+      example: "10"
+    max:
+      content: "$2"
+      example: "60"
+
+error:
+  message:
+    it: Errore
+    en: Error
+  description: Label for error
+
+loading:
+  message:
+    it: Caricamento in corso...
+    en: Loading...
+  description: Message shown when the extension is loading data
+
+loadError:
+  message:
+    it: Errore durante il caricamento dei dati
+    en: Loading data error
+  description: Message shown when an error occurs during data loading
+
+savingChanges:
+  message:
+    it: Salvataggio delle modifiche in corso...
+    en: Saving changes...
+  description: Message shown when an data saving is in progress
+
+savingError:
+  message:
+    it: Errore durante il salvataggio delle modifiche
+    en: Saving changes error
+  description: Message shown when an error occurs during data saving
+
+notes:
+  message:
+    it: Note
+    en: Notes
+  description: Label for notes section in options page
+
+allRightsReserved:
+  message:
+    it: ©2023-$year$, Marco Trulla. Rilasciata sotto la licenza AGPL-3.0 e versioni successive.
+    en: ©2023-$year$, Marco Trulla. Released under the AGPL-3.0 and later versions.
+  description: Label for all rights reserved text
+  placeholders:
+    year:
+      content: "$1"
+      example: "2023"
