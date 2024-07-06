@@ -1,6 +1,6 @@
 import jsConfig from "@eslint/js";
-import tsConfig from "typescript-eslint";
 import eslintConfigPrettier from "eslint-config-prettier";
+import tsConfig from "typescript-eslint";
 
 export default [
   jsConfig.configs.recommended,

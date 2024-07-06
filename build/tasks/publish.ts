@@ -1,12 +1,12 @@
-import { Config } from "../libs/build.ts";
 import { createReadStream } from "node:fs";
 import { resolve } from "node:path";
-import { exists } from "fs-extra";
 import chromeWebstoreUpload, {
   type Item,
   type Options,
 } from "chrome-webstore-upload";
+import { exists } from "fs-extra";
 import { name } from "../../package.json";
+import { Config } from "../libs/build.ts";
 
 console.log("Publishing...");
 

@@ -1,7 +1,7 @@
-import { Config, files } from "../libs/build.ts";
 import { resolve } from "node:path";
 import browserslists from "browserslist";
-import { bundle, browserslistToTargets } from "lightningcss";
+import { browserslistToTargets, bundle } from "lightningcss";
+import { Config, files } from "../libs/build.ts";
 
 console.log("Building CSS...");
 

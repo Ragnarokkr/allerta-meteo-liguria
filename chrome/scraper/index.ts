@@ -11,8 +11,10 @@ function errorResponse(data: { error: string }) {
 }
 
 function messagesHandler(
+  // biome-ignore lint/suspicious/noExplicitAny: Chrome declaration expects for `any` type
   message: any,
   sender: chrome.runtime.MessageSender,
+  // biome-ignore lint/suspicious/noExplicitAny: Chrome declaration expects for `any` type
   sendResponse: (response?: any) => void
 ) {
   if (sender.id !== chrome.runtime.id && message.target !== "scraper") return;
@@ -31,8 +33,10 @@ function messagesHandler(
     } else {
       sendResponse(errorResponse({ error: "Invalid request" }));
     }
-  } catch (err: any) {
-    chrome.runtime.sendMessage(errorResponse({ error: err.message }));
+  } catch (err: unknown) {
+    chrome.runtime.sendMessage(
+      errorResponse({ error: (err as Error).message })
+    );
   }
 }
 

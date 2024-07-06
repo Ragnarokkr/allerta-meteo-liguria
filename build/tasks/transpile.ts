@@ -11,7 +11,7 @@ try {
   if (!results.success) {
     throw new AggregateError(results.logs, "Build failed");
   }
-} catch (err) {
+} catch (_err) {
   console.error(...(results?.logs ?? []));
   process.exit(1);
 }

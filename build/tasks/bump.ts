@@ -1,7 +1,7 @@
-import { Config } from "../libs/build.ts";
-import { type ReleaseType, RELEASE_TYPES, inc } from "semver";
 import { resolve } from "node:path";
+import { RELEASE_TYPES, type ReleaseType, inc } from "semver";
 import pkg from "../../package.json";
+import { Config } from "../libs/build.ts";
 
 console.log("Bumping version...");
 

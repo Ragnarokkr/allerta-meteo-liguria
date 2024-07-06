@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 @customElement("ui-wall-of-fame-item")
@@ -44,8 +44,8 @@ export class WallOfFameItem extends LitElement {
   href?: string;
 
   override render() {
-    return this.href ?
-        html`
+    return this.href
+      ? html`
           <a href="${this.href}">
             <span>${this.name}</span>
             <span><slot></slot></span>

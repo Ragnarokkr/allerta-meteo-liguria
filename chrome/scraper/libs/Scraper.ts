@@ -57,7 +57,7 @@ export class Scraper {
           "al-msgbar-"
         )[1] ?? null
       );
-    } catch (err) {
+    } catch (_err) {
       return "";
     }
   }
@@ -78,7 +78,7 @@ export class Scraper {
         (query?.snapshotItem(0) as HTMLElement).innerText.toLocaleLowerCase() ??
         null
       );
-    } catch (err) {
+    } catch (_err) {
       return "";
     }
   }
@@ -101,7 +101,7 @@ export class Scraper {
         (query?.snapshotItem(0) as HTMLElement).innerText.toLocaleLowerCase() ??
         null
       );
-    } catch (err) {
+    } catch (_err) {
       return "";
     }
   }
@@ -134,7 +134,7 @@ export class Scraper {
         parseInt(hours),
         parseInt(minutes)
       ).getTime();
-    } catch (err) {
+    } catch (_err) {
       return Date.now();
     }
   }
@@ -157,34 +157,36 @@ export class Scraper {
         `//section[${5 + offsetCursor}]/div/div/div/div[2]/div/div[6]/div/a`
       );
       links.alert =
-        alertBulletin?.snapshotLength == 0 ?
-          ""
-        : this._normalize(
-            (alertBulletin?.snapshotItem(0) as HTMLAnchorElement).href
-          );
+        alertBulletin?.snapshotLength == 0
+          ? ""
+          : this._normalize(
+              (alertBulletin?.snapshotItem(0) as HTMLAnchorElement).href
+            );
 
       // XPath: /html/body/section[5]/div/div/div/div[3]/div/div[4]/div/a
       const forecastBulletin = this._evaluate(
         `//section[${5 + offsetCursor}]/div/div/div/div[3]/div/div[4]/div/a`
       );
       links.forecast =
-        forecastBulletin?.snapshotLength == 0 ?
-          ""
-        : this._normalize(
-            (forecastBulletin?.snapshotItem(0) as HTMLAnchorElement).href
-          );
+        forecastBulletin?.snapshotLength == 0
+          ? ""
+          : this._normalize(
+              (forecastBulletin?.snapshotItem(0) as HTMLAnchorElement).href
+            );
 
       // XPath: /html/body/section[4]/div/div[1]/div/div[2]/div/img
       const alertMap = this._evaluate(
         `//section[${4 + offsetCursor}]/div/div[1]/div/div[2]/div/img`
       );
       links.map =
-        alertMap?.snapshotLength == 0 ?
-          ""
-        : this._normalize((alertMap?.snapshotItem(0) as HTMLImageElement).src);
+        alertMap?.snapshotLength == 0
+          ? ""
+          : this._normalize(
+              (alertMap?.snapshotItem(0) as HTMLImageElement).src
+            );
 
       return links;
-    } catch (err) {
+    } catch (_err) {
       return { alert: "", forecast: "", map: "" };
     }
   }

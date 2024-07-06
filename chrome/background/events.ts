@@ -1,9 +1,9 @@
 import { sentenceCase, titleCase } from "../libs/utils.ts";
 import {
+  StatusActionIcons,
+  createIconDescriptor,
   defaultSettings,
   defaultStatus,
-  createIconDescriptor,
-  StatusActionIcons,
 } from "./setup.ts";
 import { update } from "./update.ts";
 

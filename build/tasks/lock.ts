@@ -1,6 +1,6 @@
+import { resolve } from "node:path";
 import { exists, rm } from "fs-extra";
 import { Config } from "../libs/build.ts";
-import { resolve } from "node:path";
 
 const lockFile = resolve(Config.basePath, "build.lock");
 

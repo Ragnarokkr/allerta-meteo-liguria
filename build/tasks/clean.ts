@@ -1,5 +1,5 @@
-import { Config } from "../libs/build.ts";
 import { exists, rmdir } from "fs-extra";
+import { Config } from "../libs/build.ts";
 
 console.log("Cleaning...");
 

@@ -84,17 +84,14 @@ export async function scrape(url: string): Promise<ScraperResponse> {
   // Scraped links has the extension's path in the URL instead of thier domain.
   // This fixes that.
   if (response.success) {
-    response.response.links.alert =
-      response.response.links.alert ?
-        `${url}/${response.response.links.alert}`
+    response.response.links.alert = response.response.links.alert
+      ? `${url}/${response.response.links.alert}`
       : "";
-    response.response.links.forecast =
-      response.response.links.forecast ?
-        `${url}/${response.response.links.forecast}`
+    response.response.links.forecast = response.response.links.forecast
+      ? `${url}/${response.response.links.forecast}`
       : "";
-    response.response.links.map =
-      response.response.links.map ?
-        `${url}/${response.response.links.map}`
+    response.response.links.map = response.response.links.map
+      ? `${url}/${response.response.links.map}`
       : "";
   }
 

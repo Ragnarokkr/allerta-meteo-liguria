@@ -1,8 +1,8 @@
 import type { Status } from "../libs/types/status.ts";
-import type { ScraperResponse } from "../scraper/libs/types/Scraper.ts";
-import { StatusActionIcons } from "./setup.ts";
 import { titleCase } from "../libs/utils.ts";
+import type { ScraperResponse } from "../scraper/libs/types/Scraper.ts";
 import { scrape } from "./offscreen.ts";
+import { StatusActionIcons } from "./setup.ts";
 
 /**
  * Sets the status of the application based on the provided ScraperResponse.
@@ -13,9 +13,8 @@ import { scrape } from "./offscreen.ts";
 async function setStatus(response: ScraperResponse): Promise<void> {
   if (response.success) {
     const newStatus: Status = {
-      actionIcon:
-        response.response.alert ?
-          StatusActionIcons[response.response.alert]
+      actionIcon: response.response.alert
+        ? StatusActionIcons[response.response.alert]
         : StatusActionIcons.error,
       actionText: chrome.i18n.getMessage("updateAsOf", [
         new Date(response.response.date).toLocaleString(),

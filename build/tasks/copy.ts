@@ -1,6 +1,6 @@
-import { Config, files } from "../libs/build.ts";
 import { resolve } from "node:path";
 import { copy } from "fs-extra";
+import { Config, files } from "../libs/build.ts";
 
 console.log("Copying files...");
 

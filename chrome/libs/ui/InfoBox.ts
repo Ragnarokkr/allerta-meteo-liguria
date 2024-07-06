@@ -1,9 +1,9 @@
-import { html, css, LitElement, nothing } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 
-import { info, checkCircle as success, warning, error } from "./icons.ts";
 import { choose } from "lit/directives/choose.js";
+import { error, info, checkCircle as success, warning } from "./icons.ts";
 
 type InfoBoxSeverityLevel = "info" | "success" | "warning" | "error";
 

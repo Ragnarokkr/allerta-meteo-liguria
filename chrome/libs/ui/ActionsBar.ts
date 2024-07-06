@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
 export type ActionsBarAlignment = "start" | "end";

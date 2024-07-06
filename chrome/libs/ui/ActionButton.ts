@@ -1,4 +1,4 @@
-import { html, css, LitElement, nothing } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { choose } from "lit/directives/choose.js";
 import { when } from "lit/directives/when.js";

@@ -1,5 +1,5 @@
-import type { BuildConfig } from "bun";
 import { resolve } from "node:path";
+import type { BuildConfig } from "bun";
 import { author, version } from "./package.json";
 
 const isProduction = process.env.NODE_ENV === "production";

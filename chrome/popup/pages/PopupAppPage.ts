@@ -1,8 +1,8 @@
-import type { Status } from "../../libs/types/status.ts";
-import type { Settings } from "../../libs/types/settings.ts";
-import { html, css, LitElement, nothing } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
+import type { Settings } from "../../libs/types/settings.ts";
+import type { Status } from "../../libs/types/status.ts";
 
 import "../../libs/ui/ActionsBar.ts";
 import "../../libs/ui/ActionButton.ts";

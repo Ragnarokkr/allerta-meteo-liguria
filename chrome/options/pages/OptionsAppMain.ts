@@ -1,8 +1,8 @@
-import { html, css, LitElement } from "lit";
+import { Routes } from "@lit-labs/router";
+import { LitElement, css, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { map } from "lit/directives/map.js";
-import { Routes } from "@lit-labs/router";
 
 import "../../libs/ui/InfoBox.ts";
 import "../../libs/ui/NoteBox.ts";

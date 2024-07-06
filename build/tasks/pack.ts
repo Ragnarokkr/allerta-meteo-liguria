@@ -1,8 +1,8 @@
-import { Config } from "../libs/build.ts";
 import { resolve } from "node:path";
 import { zip } from "cross-zip";
-import { name } from "../../package.json";
 import { ensureDir, exists } from "fs-extra";
+import { name } from "../../package.json";
+import { Config } from "../libs/build.ts";
 
 function onError(error: Error | undefined) {
   if (error) {

@@ -2,3 +2,7 @@ node_modules/
 .cache/
 dist/
 resources/
+*.js
+*.ts
+*.json
+*.jsonc

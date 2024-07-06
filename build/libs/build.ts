@@ -1,4 +1,4 @@
-import { type GlobScanOptions, Glob } from "bun";
+import { Glob, type GlobScanOptions } from "bun";
 
 export { default as Config } from "../../build.config.ts";
 

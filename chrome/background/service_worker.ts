@@ -8,4 +8,6 @@ chrome.alarms.onAlarm.addListener(onAlarm);
 chrome.storage.onChanged.addListener(onChanged);
 
 // Executes the update at least once at startup before scheduling the next one
-update().then(() => {});
+(async () => {
+  await update();
+})();

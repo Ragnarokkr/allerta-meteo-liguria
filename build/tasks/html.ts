@@ -1,7 +1,7 @@
-import { Config, files } from "../libs/build.ts";
 import { resolve } from "node:path";
-import { minify } from "html-minifier-terser";
 import { ensureFile } from "fs-extra";
+import { minify } from "html-minifier-terser";
+import { Config, files } from "../libs/build.ts";
 
 console.log("Building HTML...");
 

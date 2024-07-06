@@ -1,7 +1,7 @@
-import { html, css, LitElement, nothing } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { live } from "lit/directives/live.js";
 import { guard } from "lit/directives/guard.js";
+import { live } from "lit/directives/live.js";
 import { when } from "lit/directives/when.js";
 
 import "../../libs/ui/AlertBox.ts";
@@ -142,7 +142,7 @@ export class SettingsPage extends LitElement {
       setTimeout(() => {
         this._isSaving = false;
       }, 4000);
-    } catch (error) {
+    } catch (_err) {
       this._savingError = true;
       setTimeout(() => {
         this._savingError = false;

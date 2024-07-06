@@ -1,4 +1,4 @@
-import { html, css, LitElement, nothing } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 import "../../libs/ui/WallOfFameItem.ts";
@@ -61,9 +61,8 @@ export class WallOfFame extends LitElement {
   columns?: number;
 
   override render() {
-    const columnsCSS =
-      this.columns ?
-        html`<style>
+    const columnsCSS = this.columns
+      ? html`<style>
           .wall-of-fame__content {
             display: grid;
             grid-template-columns: repeat(${this.columns}, 1fr);

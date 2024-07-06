@@ -1,8 +1,8 @@
-import { Config, files } from "../libs/build.ts";
 import { resolve } from "node:path";
 import { ensureFile } from "fs-extra";
-import { marked } from "marked";
 import { minify } from "html-minifier-terser";
+import { marked } from "marked";
+import { Config, files } from "../libs/build.ts";
 
 console.log("Building Markdown...");
 

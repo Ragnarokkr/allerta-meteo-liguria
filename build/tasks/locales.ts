@@ -1,6 +1,6 @@
-import { Config, files } from "../libs/build.ts";
 import { resolve } from "node:path";
 import yaml from "js-yaml";
+import { Config, files } from "../libs/build.ts";
 
 type LocaleItem = {
   message: string | Array<Record<string, string>>;
@@ -13,7 +13,7 @@ type LocaleItem = {
 
 type LocalesDictionary = Map<string, LocaleItem>;
 
-function mapToJSON(_: any, value: any) {
+function mapToJSON(_: unknown, value: unknown) {
   if (value instanceof Map) {
     return Object.fromEntries(value);
   } else {

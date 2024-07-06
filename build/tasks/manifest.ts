@@ -1,5 +1,5 @@
-import { Config } from "../libs/build.ts";
 import { resolve } from "node:path";
+import { Config } from "../libs/build.ts";
 
 console.log("Building manifest...");
 

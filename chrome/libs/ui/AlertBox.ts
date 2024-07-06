@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 export type AlertBoxSeverityLevel = "info" | "success" | "warning" | "error";
